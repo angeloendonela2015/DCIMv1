@@ -1,0 +1,53 @@
+<div class="container-xxl p-5">
+  <nav class="navbar lst fixed-top">
+    <div class="container-fluid">
+      <%= link_to root_path,  class:"navbar-brand mb-0 h1 lsttxt neon" do %>
+        D<%= image_tag "/assets/comspec.png", style:"width:auto;height:25px;", class:"mb-1" %>IM
+      <% end %>
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <%= link_to root_path do %>
+            <i class="nav-link fa fa-solid fa-home usr" title="HOME"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to devices_path do %>
+            <i class="nav-link fa fa-solid fa-code-fork usr" title="SNMP Device"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to ssms_path do %>
+            <i class="nav-link fa fa-solid fa-sitemap usr" title="Server Status Monitoring"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to users_path do %>
+            <i class="nav-link fa fa-solid fa-user usr text-white" title="Accounts"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' } do %>
+            <i class="nav-link fa fa-sign-in usr" title="Logged out"></i>
+          <%end%>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <p id="notice"><%= notice %></p>
+  <div class="row mt-5 position-absolute top-50 start-50 translate-middle">
+    <div class="card p-5" style="width: 50rem;">
+      <i class="text-center fa fa-solid fa-user-circle fs-1 text-light" alt="<%= @user.firstname %> <%= @user.middlename %> <%= @user.lastname %>"></i>
+      <div class="card-body text-light text-center">
+        <h5 class="card-title"> <%= @user.firstname %> <%= @user.middlename %> <%= @user.lastname %></h5>
+        <p class="card-text"> <%= @user.username %></p>
+        <p class="card-text"><%= @user.userinterface %></p>
+        <p class="card-text">
+          <strong>Create at:</strong>
+          <%= @user.created_at %>
+        </p>
+        <%= link_to 'Edit', edit_user_path(@user) %> |
+        <%= link_to 'Back', users_path %>
+      </div>
+    </div>
+  </div>
+</div>

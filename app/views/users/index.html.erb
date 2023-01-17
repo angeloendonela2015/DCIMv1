@@ -1,0 +1,91 @@
+<div class="container-xxl p-5">
+  <nav class="navbar lst fixed-top">
+    <div class="container-fluid">
+      <%= link_to root_path,  class:"navbar-brand mb-0 h1 lsttxt neon" do %>
+        D<%= image_tag "/assets/comspec.png", style:"width:auto;height:25px;", class:"mb-1" %>IM
+      <% end %>
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <%= link_to root_path do %>
+            <i class="nav-link fa fa-solid fa-home usr" title="HOME"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to devices_path do %>
+            <i class="nav-link fa fa-solid fa-code-fork usr" title="SNMP Device"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to ssms_path do %>
+            <i class="nav-link fa fa-solid fa-sitemap usr" title="Server Status Monitoring"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to users_path do %>
+            <i class="nav-link fa fa-solid fa-user usr text-white" title="Accounts"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' } do %>
+            <i class="nav-link fa fa-sign-in usr" title="Logged out"></i>
+          <%end%>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row mt-5">
+    <p id="notice"><%= notice %><%= @include %></p>
+    <div class="col-sm-12 mt-2"">
+      <div class="card">
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <h5 class="card-title text-light"><i class="fa fa-solid fa-user"> USERS</i></h5>
+              </div>
+              <div class="col">
+                <%= form_tag ssms_path, :method => "GET" do %>
+                  <div class="input-group input-group-sm mb-3">
+                    <%= text_field_tag :search, params[:search], class:"form-control", placeholder:"Search Server Name" %>
+                    <%= submit_tag "Search", class:"btn btn-outline-secondary" do %>
+                      <i class="fa fa-solid fa-search"></i>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+            <div class="table-responsive">
+              <table class="table table-dark table-hover" style="border-radius:25px;">
+                <thead>
+                  <tr>
+                    <th>Firstname</th>
+                    <th>Middlename</th>
+                    <th>Lastname</th>
+                    <th colspan="3"></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <% @users.each do |user| %>
+                    <tr>
+                      <td><%= user.firstname %></td>
+                      <td><%= user.middlename %></td>
+                      <td><%= user.lastname %></td>
+                      <td><%= link_to '', user, class:"fa fa-solid fa-arrow-right", title:"Show" %></td>
+                      <td><%= link_to '', edit_user_path(user), class:"fa fa-solid fa-edit", title:"Edit" %></td>
+                      <td><%= link_to '', user, method: :delete, data: { confirm: 'Are you sure?' }, class:"fa fa-solid fa-trash", title:"Delete" %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <button class="btn-9">
+            <%= link_to new_user_path :class=>"btn1" do %>ADD NEW USER<% end %>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,115 @@
+<div class="container-xxl p-5" id="requests">
+  <nav class="navbar lst fixed-top">
+    <div class="container-fluid">
+      <%= link_to root_path,  class:"navbar-brand mb-0 h1 lsttxt neon" do %>
+        D<%= image_tag "/assets/comspec.png", style:"width:auto;height:25px;", class:"mb-1" %>IM
+      <% end %>
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <%= link_to root_path do %>
+            <i class="nav-link fa fa-solid fa-home usr" title="HOME"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to devices_path do %>
+            <i class="nav-link fa fa-solid fa-code-fork usr" title="SNMP Device"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to ssms_path do %>
+            <i class="nav-link fa fa-solid fa-sitemap usr text-white" title="Server Status Monitoring"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to users_path do %>
+            <i class="nav-link fa fa-solid fa-user usr" title="Accounts"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' } do %>
+            <i class="nav-link fa fa-sign-in usr" title="Logged out"></i>
+          <%end%>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row mt-5">
+    <p id="notice"><%= notice %><%= @include %></p>
+    <div class="col-sm-12 mt-2"">
+      <div class="card">
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <h5 class="card-title text-light"><i class="fa fa-solid fa-sitemap"> SERVER STATUS MONITORING</i></h5>
+              </div>
+              <div class="col">
+                <%= form_tag ssms_path, :method => "GET" do %>
+                  <div class="input-group input-group-sm mb-3">
+                    <%= text_field_tag :ssm_search, params[:ssm_search], class:"form-control", placeholder:"Search Server Name" %>
+                    <%= submit_tag "Search", class:"btn btn-outline-secondary" do %>
+                      <i class="fa fa-solid fa-search"></i>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+            <div class="table-responsive">
+              <table class="table table-dark table-hover" style="border-radius:25px;">
+                <thead>
+                  <tr>
+                    <th>Unitname</th>
+                    <th style="text-align:center;">Ipaddress</th>
+                    <th colspan="2" style="text-align:center;">Status</th>
+                    <th colspan="3" style="text-align:center;">Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <% @ssms.each do |ssm|%>
+                    <tr>
+                      <td><%= ssm.unitname %></td>
+                      <td style="text-align:center;"><a href="http://<%= ssm.ipaddress %>" target="_blank"><%= ssm.ipaddress %></a></td>
+                      <td class="<%=
+                      ssm_ip  = ssm.ipaddress
+                      p1 = Net::Ping::External.new(ssm_ip,timeout=0.9)
+                      status_ip = p1.ping?
+                      if status_ip == true
+                        @status = 'Online'
+                      else
+                        @status = 'Offline'
+                      end %>" style="text-align:center;"><i class="fa fa-circle"></i></td>
+                      <td class="<%= @status %>" style="text-align:center;">
+                          <%= @status %>
+                      </td>
+                      <td style="text-align:center;">
+                        <%= link_to '', ssm, class:"fa fa-solid fa-arrow-right", title:"Show" %>
+                      </td>
+
+                      <td style="text-align:center;">
+                        <%= link_to '', edit_ssm_path(ssm), class:"fa fa-solid fa-edit", title:"Edit" %>
+                      </td>
+                      <td style="text-align:center;">
+                        <%= link_to '', ssm, method: :delete, data: { confirm: 'Are you sure?' }, class:"fa fa-solid fa-trash", title:"Delete"%>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <button class="btn-9 d-grid gap-2 d-md-flex justify-content-md-start">
+            <%= link_to new_ssm_path :class=>"btn1" do %>Add SERVER STATUS MONITORING<% end %>
+          </button>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <span class="d-grid gap-2 d-md-flex justify-content-md-center text-light">
+              <%= will_paginate @ssms, class:"" %>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

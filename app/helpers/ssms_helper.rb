@@ -1,0 +1,2 @@
+module SsmsHelper
+end

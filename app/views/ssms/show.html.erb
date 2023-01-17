@@ -1,0 +1,91 @@
+<div class="container-xxl p-5" id="requests">
+  <nav class="navbar lst fixed-top">
+    <div class="container-fluid">
+      <%= link_to root_path,  class:"navbar-brand mb-0 h1 lsttxt neon" do %>
+        D<%= image_tag "/assets/comspec.png", style:"width:auto;height:25px;", class:"mb-1" %>IM
+      <% end %>
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <%= link_to root_path do %>
+            <i class="nav-link fa fa-solid fa-home usr" title="HOME"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to devices_path do %>
+            <i class="nav-link fa fa-solid fa-code-fork usr" title="SNMP Device"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to ssms_path do %>
+            <i class="nav-link fa fa-solid fa-sitemap usr text-white" title="Server Status Monitoring"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to users_path do %>
+            <i class="nav-link fa fa-solid fa-user usr" title="Accounts"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' } do %>
+            <i class="nav-link fa fa-sign-in usr" title="Logged out"></i>
+          <%end%>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row mt-5">
+    <p id="notice"><%= notice %></p>
+    <div class="col-sm-12 mt-2">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-text text-white">
+            <strong></strong>
+          </h5>
+        </div>
+        <table class="table table-borderless ">
+          <tbody>
+            <tr>
+              <th scope="row">
+                <p class="card-text text-white fs-6"> <%= @echoName %> </p>
+              </th>
+              <th scope="row">
+                <p class="card-text text-white fs-6">
+                  <strong>IP:</strong>
+                  <%= @echoIP %>
+                </p>
+              </th>
+              <th scope="row">
+                <div style="display:none;">
+                  <%=
+                    if @responseresult < '0.000090'
+                      @css = 'text-success'
+                      @graph = "#19875487"
+                    elsif @responseresult < '0.000200'
+                      @css = "text-warning"
+                      @graph = "#ffc10770"
+                    else
+                      @css = 'text-danger'
+                      @graph = "#ed061c7d"
+                    end
+                  %>
+                </div>
+                <p class="card-text <%= @css.downcase %> fs-6"><%= @responseresult %> ms</p>
+              </th>
+              <th scope="row">
+                <p class="card-text <%= @css.downcase %> fs-6">
+                  <i class="fa fa-circle"></i> <%= @echoStatus %>
+                </p>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+        <%= area_chart Ssm.group(:created_at).maximum(@responseresult), colors:[@graph, "#666"] %>
+      </div>
+    </div>
+  </div>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+    <%= link_to 'Edit', edit_ssm_path(@ssm), class:"btn btn-primary btn-sm" %>
+    <%= link_to 'Back', ssms_path, class:"btn btn-secondary btn-sm" %>
+  </div>
+</div>

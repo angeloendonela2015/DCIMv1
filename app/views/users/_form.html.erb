@@ -1,0 +1,91 @@
+<!-- Section: Design Block -->
+<section class="text-center">
+  <!-- Background image -->
+  <div class="p-5 bg-image rounded-pill shadow" style="background-image: url('/assets/giphy.webp'); height: 300px;">
+    <h2 class="fw-bold mb-5 pt-5 text-light word">Add new user</h2>
+  </div>
+  <!-- Background image -->
+
+  <div class="card mx-4 mx-md-5 shadow-5-strong" style=" margin-top: -100px; background: hsla(0, 0%, 100%, 0.8); backdrop-filter: blur(30px);">
+    <div class="card-body py-5 px-md-5">
+
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8">
+          <%= form_with(model: user, local: true) do |form| %>
+            <% if user.errors.any? %>
+              <div id="error_explanation" class="alert alert-danger">
+                <h5>Please fill out the <%= pluralize(user.errors.count, "form") %> that prohibited this user from being saved:</h5>
+
+                <ol>
+                <% user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ol>
+              </div>
+            <% end %>
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row">
+              <div class="form-outline mb-4">
+                <%= form.text_field :username, class: "form-control" %>
+                <%= form.label :username, class:"form-label" %>
+              </div>
+
+              <div class="col-md-4 mb-4">
+                <div class="form-outline">
+                  <%= form.text_field :firstname, class: "form-control", for:"validationCustomUsername" %>
+                  <%= form.label :firstname, class:"form-label", :required => true %>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="form-outline">
+                  <%= form.text_field :middlename, class: "form-control" %>
+                  <%= form.label :middlename, class:"form-label" %>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="form-outline">
+                  <%= form.text_field :lastname, class: "form-control" %>
+                  <%= form.label :lastname, class:"form-label" %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Email input -->
+
+
+            <div class="col-md-12 mb-4">
+              <%= form.select(:userinterface, ['', 'Administrator', 'User'],{},{class:"form-control"}) %>
+              <%= form.label 'User Interface', class:"form-label" %>
+            </div>
+
+            <div class="row">
+              <!-- Password input -->
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                  <%= form.password_field :password, class: "form-control" %>
+                  <%= form.label :password, class:"form-label" %>
+                </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                  <%= form.password_field :password_confirmation, class: "form-control" %>
+                  <%= form.label :password_confirmation, class:"form-label" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- Submit button -->
+              <div class="col-md-6 mb-4">
+                <%= form.submit class:"btn btn-primary btn-block mb-4", style:"width:100%;" %>
+              </div>
+              <div class="col-md-6 mb-4">
+                <%= link_to 'Back', users_path, class:"btn btn-light mb-4", style:"width:100%;" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

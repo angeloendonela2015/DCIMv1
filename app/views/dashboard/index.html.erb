@@ -1,0 +1,171 @@
+<div class="container-xxl p-5" id="requests">
+  <nav class="navbar lst fixed-top">
+    <div class="container-fluid">
+      <%= link_to root_path,  class:"navbar-brand mb-0 h1 lsttxt neon" do %>
+        D<%= image_tag "/assets/comspec.png", style:"width:auto;height:25px;", class:"mb-1" %>IM
+      <% end %>
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <%= link_to root_path do %>
+            <i class="nav-link fa fa-solid fa-home usr text-white" title="HOME"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to devices_path do %>
+            <i class="nav-link fa fa-solid fa-code-fork usr" title="SNMP Device"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to ssms_path do %>
+            <i class="nav-link fa fa-solid fa-sitemap usr" title="Server Status Monitoring"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to users_path do %>
+            <i class="nav-link fa fa-solid fa-user usr" title="Accounts"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' } do %>
+            <i class="nav-link fa fa-sign-in usr" title="Log In"></i>
+          <%end%>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row mt-5">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="..." class="rounded me-2" alt="...">
+        <strong class="me-auto">Bootstrap</strong>
+        <small>11 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+    <p id="notice" class="<%= @class %>"><%= @greet %></p>
+
+    <%= @alerting %>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mt-4">
+      <div class="card">
+        <div class="header">
+            <h2>SERVER STATUS MONITORING</h2>
+            <%= link_to ssms_path, :class=>"header-dropdown m-r--5" do %>
+                <i class="fa fa-solid fa-sitemap" style="color:#fff;"></i>
+            <%end%>
+        </div>
+        <div class="body">
+            <div class="table-responsive">
+                <table class="table table-hover dashboard-task-infos">
+                    <thead>
+                        <tr>
+                            <th>UNIT NAME</th>
+                            <th></th>
+                            <th style="text-align:center;">STATUS</th>
+                        </tr>
+                    </thead>
+                  <% @ssms.each do |ssm| %>
+                    <div class="d-none"><%=
+                    ssm_ip  = ssm.ipaddress
+                    p1 = Net::Ping::External.new(ssm_ip,timeout=0.9)
+                    status_ip = p p1.ping?
+                    if status_ip == true
+                      @staus = 'Online'
+                    else
+                      @staus = 'Offline'
+                    end
+                    %></div>
+                    <tbody>
+                        <tr>
+                            <td class="text-light"><%= ssm.unitname %></td>
+                            <td class="<%= @staus %>"><i class="fa fa-circle"></i></td>
+                            <td class="<%= @staus %>" style="text-align:center;">
+                              <%= @staus %>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <% end %>
+                </table>
+            </div>
+            <span class="text-light">
+              <%= will_paginate @ssms, class:"d-grid gap-2 d-md-flex justify-content-md-center" %>
+            </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 mt-4">
+      <div class="card">
+        <div class="header">
+            <h2>SNMP DEVICES</h2>
+            <%= link_to devices_path :class=>"header-dropdown m-r--5" do %>
+                <i class="fa fa-solid fa-code-fork" style="color:#fff;"></i>
+            <% end %>
+        </div>
+        <div class="body">
+          <div class="row">
+            <% @devices.each do |device| %>
+            <div class="d-none">
+              <%=
+              checkIP = device.ipaddress
+              scanIP = Net::Ping::External.new(checkIP,timeout=0.9)
+              resultIP = p scanIP.ping?
+              if resultIP == true
+                host = device.ipaddress.freeze
+                typeValue = { 'OCTET STRING' => :to_f, 'INTEGER' => :to_f, 'TimeTicks' => :to_s }.freeze
+                registers = [device.oid ]
+                params_array = {}
+                SNMP::Manager.open(host: host, :community => device.community) do |manager|
+                  manager.load_module('UPS-MIB')
+                  response = manager.get(registers)
+                  response.each_varbind do |vb|
+                    if method = typeValue[vb.value.asn1_type]
+                      params_array = vb.value.send(method)/10
+                    else
+                      puts "Type '#{vb.value.asn1_type}' not recognized!"
+                    end
+                  end
+                end
+                "#{ @sensoreType = device.sensore_type}" " #{ @getArray = pp params_array}"
+              else
+                "SNMP Can not display your sensor/device check your LAN or IP Address to fix this error.}"
+              end
+              %>
+            </div>
+              <div class="col-sm-3">
+                <%= link_to device do %>
+                <div class="card">
+                  <div class="card-body">
+                    <small class="card-title text-light"><%= device.unitname %></small>
+                    <small class="card-subtitle mb-2 text-light"><%= device.ipaddress %></small>
+                    <p class="card-text text-info fw-light">
+                      <%= @sensoreType %>: <%= @getArray %>
+                      <input type="hidden" id="deviceArray" value="<%= @getArray %>">
+                    </p>
+                    <p class="card-text text-warning">
+                      Alarm:<%= @deviceAlarm = device.alarm %>
+                      <input type="hidden" id="deviceAlarm" value="<%= @deviceAlarm %>">
+                    </p>
+                  </div>
+                </div>
+                <% end %>
+              </div>
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<audio id="xyz" src="/assets/mixkit-facility-alarm-sound-999.wav" preload="auto"></audio>
+<script type="text/javascript">
+  var getArray = document.getElementById('deviceArray').value;
+  var alarm = document.getElementById('deviceAlarm').value;
+  if( alarm == getArray){
+    document.getElementById('xyz').play();
+  }
+</script>
