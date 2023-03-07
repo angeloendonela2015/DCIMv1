@@ -1,0 +1,22 @@
+class Snmpdevice < ApplicationRecord
+  validates :device_name, presence: true
+  validates :device_ip, presence: true
+  validates :community_type, presence: true
+  validates :outlet_type, presence: true
+  validates :oid_outletname1, presence: true
+  validates :oid_outletname2, presence: true
+  validates :oid_outletname3, presence: true
+  validates :oid_outletname4, presence: true
+  validates :oid_outletname5, presence: true
+  validates :oid_outletname6, presence: true
+  validates :oid_outletname7, presence: true
+  validates :oid_outletname8, presence: true
+  validates :oid_status1, presence: true
+  validates :oid_status2, presence: true
+  validates :oid_status3, presence: true
+  validates :oid_status4, presence: true
+  validates :oid_status5, presence: true
+  validates :oid_status6, presence: true
+  validates :oid_status7, presence: true
+  validates :oid_status8, presence: true
+end

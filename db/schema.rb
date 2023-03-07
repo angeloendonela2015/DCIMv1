@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_13_072359) do
+ActiveRecord::Schema.define(version: 2023_02_28_031926) do
 
   create_table "devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "unitname"
@@ -19,6 +19,31 @@ ActiveRecord::Schema.define(version: 2022_10_13_072359) do
     t.string "community"
     t.string "oid"
     t.string "alarm"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "snmpdevices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "device_name"
+    t.string "device_ip"
+    t.string "community_type"
+    t.string "outlet_type"
+    t.string "oid_outletname1"
+    t.string "oid_outletname2"
+    t.string "oid_outletname3"
+    t.string "oid_outletname4"
+    t.string "oid_outletname5"
+    t.string "oid_outletname6"
+    t.string "oid_outletname7"
+    t.string "oid_outletname8"
+    t.string "oid_status1"
+    t.string "oid_status2"
+    t.string "oid_status3"
+    t.string "oid_status4"
+    t.string "oid_status5"
+    t.string "oid_status6"
+    t.string "oid_status7"
+    t.string "oid_status8"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

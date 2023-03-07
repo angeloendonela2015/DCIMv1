@@ -1,6 +1,12 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
+  class String
+    def initial
+      self[0,1]
+    end
+  end
+
   def self.search(search)
     if search
       where(["unitname LIKE ?", "%#{search}%"])

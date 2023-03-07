@@ -1,0 +1,2 @@
+json.extract! snmpdevice, :id, :device_name, :device_ip, :community_type, :outlet_type, :oid_outletname1, :oid_outletname2, :oid_outletname3, :oid_outletname4, :oid_outletname5, :oid_outletname6, :oid_outletname7, :oid_outletname8, :oid_status1, :oid_status2, :oid_status3, :oid_status4, :oid_status5, :oid_status6, :oid_status7, :oid_status8, :created_at, :updated_at
+json.url snmpdevice_url(snmpdevice, format: :json)

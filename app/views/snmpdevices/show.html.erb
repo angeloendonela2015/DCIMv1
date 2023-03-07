@@ -1,0 +1,126 @@
+<nav class="navbar lst fixed-top">
+  <div class="container-fluid">
+    <%= link_to root_path,  class:"navbar-brand mb-0 h1 lsttxt neon" do %>
+      D<%= image_tag "/assets/comspec.png", style:"width:auto;height:25px;", class:"mb-1" %>IM
+    <% end %>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <%= link_to root_path, class:"nav-link" do %>
+          <i class="fa fa-solid fa-home usr" title="HOME"></i>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to snmpdevices_path, class:"nav-link text-secondary text-white" do %>
+          MiniBoot
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to ssms_path, class:"nav-link text-secondary" do %>
+          Switches
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to users_path, class:"nav-link" do %>
+          <i class="fa fa-solid fa-user usr" title="Accounts"></i>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' }, class:"nav-link" do %>
+          <i class="fa fa-solid  fa-sign-in usr" title="Logout"></i>
+        <%end%>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="row mt-5 p-5">
+  <div class="col-sm-6 mx-auto">
+    <p id="notice" class="text-center alert alert-success"><%= notice %></p>
+
+    <ul class="list-group">
+      <li href="#" class="list-group-item list-group-item-action active">
+        MiniBoot Device
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="col-sm-4">
+          <p> <strong>Device name:</strong> </p>
+        </div>
+        <div class="col-sm-4">
+          <%= @snmpdevice.device_name %>
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="col-sm-4">
+          <p> <strong>IP:</strong></p>
+        </div>
+        <div class="col-sm-4">
+          <a href="http://<%= @snmpdevice.device_ip %>" target="_blank" class="btn btn-primary btn-sm"><%= @snmpdevice.device_ip %></a>
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="col-sm-4">
+          <p><strong>Community type:</strong></p>
+        </div>
+        <div class="col-sm-4">
+          <%= @snmpdevice.community_type %>
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="col-sm-3">
+          <p>
+            <small>MiniBoot outlet: </small>
+            <strong><%= @outputAll %></strong>
+          </p>
+        </div>
+        <div class="col-sm-3">
+          <p>
+            <small>Status: </small>
+            <strong class="<%= @intRes %>"><%= @intRes %></strong>
+          </p>
+        </div>
+        <div class="col-sm-3">
+          <p>
+            <small>Output: </small>
+            <strong class="<%= @status1 %>"><%= @TotalStat %></strong>
+            -
+            <strong><%= @SubTotal %></strong>
+          </p>
+        </div>
+
+        <span class="badge badge-primary badge-pill">1</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center <%= @inActive %>">
+        <div class="col-sm-3">
+          <p><small><%= @oidName1 %>: </small><strong class="<%= @status1 %>"><%= @status1 %></strong></p>
+        </div>
+        <div class="col-sm-3">
+          <p><small><%= @oidName2 %>: </small><strong class="<%= @status2 %>"><%= @status2 %></strong></p>
+        </div>
+        <div class="col-sm-3">
+          <p><small><%= @oidName3 %>: </small><strong class="<%= @status3 %>"><%= @status3 %></strong></p>
+        </div>
+        <div class="col-sm-3">
+          <p><small><%= @oidName4 %>: </small><strong class="<%= @status4 %>"><%= @status4 %></strong></p>
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center <%= @divHide %> <%= @inActive %>">
+        <div class="col-sm-3">
+          <p><small><%= @oidName5 %>: </small><strong class="<%= @status5 %>"><%= @status5 %></strong></p>
+        </div>
+        <div class="col-sm-3">
+          <p><small><%= @oidName6 %>: </small><strong class="<%= @status6 %>"><%= @status6 %></strong></p>
+        </div>
+        <div class="col-sm-3">
+          <p><small><%= @oidName7 %>: </small><strong class="<%= @status7 %>"><%= @status7 %></strong></p>
+        </div>
+        <div class="col-sm-3">
+          <p><small><%= @oidName8 %>: </small><strong class="<%= @status8 %>"><%= @status8 %></strong></p>
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <%= link_to 'Edit', edit_snmpdevice_path(@snmpdevice), class:"btn btn-primary btn-sm" %>
+        <%= link_to 'Back', snmpdevices_path, class:"btn btn-secondary btn-sm" %>
+      </li>
+    </ul>
+  </div>
+</div>

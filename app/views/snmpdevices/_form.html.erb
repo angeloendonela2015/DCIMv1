@@ -1,0 +1,197 @@
+<div class="col-sm-12 p-5">
+  <div class="list-group">
+    <div class="list-group-item list-group-item-action active">
+      <h5 class="card-title">MiniBoot Device</h5>
+    </div>
+    <div class="list-group-item list-group-item-action p-5">
+      <%= form_with(model: snmpdevice, local: true) do |form| %>
+        <% if snmpdevice.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(snmpdevice.errors.count, "error") %> prohibited this snmpdevice from being saved:</h2>
+
+            <ul>
+            <% snmpdevice.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="row my-2">
+          <div class="col-md-3">
+            <%= form.label "Device Name", class:"form-label" %>
+            <%= form.text_field :device_name, class:"form-control form-control-sm" %>
+          </div>
+          <div class="col-md-3">
+            <%= form.label "IP Address", class:"form-label" %>
+            <%= form.text_field :device_ip, class:"form-control form-control-sm" %>
+          </div>
+          <div class="col-md-3">
+            <%= form.label :community_type, class:"form-label" %>
+            <%= form.select(:community_type,["public", "private"],{},{class:"form-control form-control-sm"}) %>
+          </div>
+
+          <div class="col-md-3">
+            <%= form.label :outlet_type, class:"form-label" %>
+            <%= form.select :outlet_type, options_for_select([['MiniBoot Outlet 4','MiniBoot_Outlet_4'],['MiniBoot Outlet 8','MiniBoot_Outlet_8']]), {  }, class:"form-control form-control-sm", id:"my_select" %>
+          </div>
+        </div>
+
+        <div class="row py-5">
+          <div class="col-md-3">
+            <h4 class="col-sm-12 text-center">Outlet 1</h4>
+            <div class="row mb-3">
+              <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5" %>
+              <div class="col-sm-6">
+                <%= form.text_field :oid_outletname1, class:"form-control form-control-sm" %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5"%>
+              <div class="col-sm-6">
+                <%= form.text_field :oid_status1, class:"form-control form-control-sm" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <h4 class="col-sm-12 text-center">Outlet 2</h4>
+            <div class="row mb-3">
+              <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5" %>
+              <div class="col-sm-6">
+                <%= form.text_field :oid_outletname2, class:"form-control form-control-sm" %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5"%>
+              <div class="col-sm-6">
+                <%= form.text_field :oid_status2, class:"form-control form-control-sm" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <h4 class="col-sm-12 text-center">Outlet 3</h4>
+            <div class="row mb-3">
+              <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5" %>
+              <div class="col-sm-6">
+                <%= form.text_field :oid_outletname3, class:"form-control form-control-sm" %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5"%>
+              <div class="col-sm-6">
+                <%= form.text_field :oid_status3, class:"form-control form-control-sm" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <h4 class="col-sm-12 text-center">Outlet 4</h4>
+            <div class="row mb-3">
+              <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5" %>
+              <div class="col-sm-6">
+                <%= form.text_field :oid_outletname4, class:"form-control form-control-sm" %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5"%>
+              <div class="col-sm-6">
+                <%= form.text_field :oid_status4, class:"form-control form-control-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="my_div">
+          <div class="row py-3" >
+            <div class="col-md-3">
+              <h4 class="col-sm-12 text-center">Outlet 5</h4>
+              <div class="row mb-3">
+                <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5", id:"oidName5" %>
+                <div class="col-sm-6">
+                  <%= form.text_field :oid_outletname5, class:"form-control form-control-sm", id:"oidNameInput5" %>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5", id:"oidStatus5" %>
+                <div class="col-sm-6">
+                  <%= form.text_field :oid_status5, class:"form-control form-control-sm", id:"ouiStatusInput5" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <h4 class="col-sm-12 text-center">Outlet 6</h4>
+              <div class="row mb-3">
+                <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5", id:"oidName6" %>
+                <div class="col-sm-6">
+                  <%= form.text_field :oid_outletname6, class:"form-control form-control-sm", id:"oidNameInput6" %>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5", id:"oidStatus6" %>
+                <div class="col-sm-6">
+                  <%= form.text_field :oid_status6, class:"form-control form-control-sm", id:"ouiStatusInput6" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <h4 class="col-sm-12 text-center">Outlet 7</h4>
+              <div class="row mb-3">
+                <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5", id:"oidName7" %>
+                <div class="col-sm-6">
+                  <%= form.text_field :oid_outletname7, class:"form-control form-control-sm", id:"oidNameInput7" %>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5", id:"oidStatus7"%>
+                <div class="col-sm-6">
+                  <%= form.text_field :oid_status7, class:"form-control form-control-sm", id:"ouiStatusInput7" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <h4 class="col-sm-12 text-center">Outlet 8</h4>
+              <div class="row mb-3">
+                <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5", id:"oidName8" %>
+                <div class="col-sm-6">
+                  <%= form.text_field :oid_outletname8, class:"form-control form-control-sm", id:"oidNameInput8" %>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5", id:"oidStatus8" %>
+                <div class="col-sm-6">
+                  <%= form.text_field :oid_status8, class:"form-control form-control-sm", id:"ouiStatusInput8" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+          <%= form.submit class:"btn btn-primary btn-sm" %>
+          <%= link_to 'Cancel', snmpdevices_path, class:"btn btn-secondary btn-sm" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function(){
+    var select = document.getElementById("my_select");
+    var div =document.getElementById("my_div");
+
+    select,addEventListener("change", function(){
+      if (select.value === "MiniBoot_Outlet_8"){
+        div.style.display = "block";
+      } else {
+        div.style.display = "none";
+      }
+    });
+  });
+</script>

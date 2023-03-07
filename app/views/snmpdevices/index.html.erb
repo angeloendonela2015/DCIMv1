@@ -1,0 +1,313 @@
+<div class="container-xxl p-5" id="requests">
+  <nav class="navbar lst fixed-top">
+    <div class="container-fluid">
+      <%= link_to root_path,  class:"navbar-brand mb-0 h1 lsttxt neon" do %>
+        D<%= image_tag "/assets/comspec.png", style:"width:auto;height:25px;", class:"mb-1" %>IM
+      <% end %>
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <%= link_to root_path, class:"nav-link" do %>
+            <i class="fa fa-solid fa-home usr" title="HOME"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to snmpdevices_path, class:"nav-link text-secondary text-white" do %>
+            MiniBoot
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to ssms_path, class:"nav-link text-secondary" do %>
+            Switches
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to users_path, class:"nav-link" do %>
+            <i class="fa fa-solid fa-user usr" title="Accounts"></i>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' }, class:"nav-link" do %>
+            <i class="fa fa-solid  fa-sign-in usr" title="Logout"></i>
+          <%end%>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row mt-5">
+    <p id="notice"><%= notice %><%= @include %></p>
+    <div class="col-sm-12 mt-2"">
+      <div class="card">
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <h5 class="card-title text-light"><i class="fa fa-solid fa-sitemap"> MiniBoot DEVICES</i></h5>
+              </div>
+              <div class="col">
+                <%= form_tag snmpdevices_path, :method => "GET" do %>
+                  <div class="input-group input-group-sm mb-3">
+                    <%= text_field_tag :ssm_search, params[:ssm_search], class:"form-control", placeholder:"Search Server Name" %>
+                    <%= submit_tag "Search", class:"btn btn-outline-secondary" do %>
+                      <i class="fa fa-solid fa-search"></i>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+            <div class="table-responsive rounded">
+              <table class="table table-dark table-hover rounded-top">
+                <thead>
+                  <tr >
+                    <th>MiniBoot Devies Name</th>
+                    <th style="text-align:center;">Ipaddress</th>
+                    <th colspan="1" style="text-align:center;">Status</th>
+                    <th colspan="3" style="text-align:center;">Outlets</th>
+                    <th colspan="3" style="text-align:center;">Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  <% @snmpdevices.each do |snmpdevice| %>
+                  <div class="d-none">
+                    <%=
+                      ssm_ip  = snmpdevice.device_ip
+                      p1 = Net::Ping::External.new(ssm_ip,timeout=0.9)
+                      status_ip = p1.ping?
+                      if status_ip == true
+                        @status = 'Online'
+
+                        host = snmpdevice.device_ip.freeze
+                        typeValue = { 'OCTET STRING' => :to_f, 'INTEGER' => :to_i }.freeze
+
+                        registers1 = [ snmpdevice.oid_status1]
+                        registers2 = [ snmpdevice.oid_status2]
+                        registers3 = [ snmpdevice.oid_status3]
+                        registers4 = [ snmpdevice.oid_status4]
+                        registers5 = [ snmpdevice.oid_status5]
+                        registers6 = [ snmpdevice.oid_status6]
+                        registers7 = [ snmpdevice.oid_status7]
+                        registers8 = [ snmpdevice.oid_status8]
+
+                        params_array1 = {}
+                        params_array2 = {}
+                        params_array3 = {}
+                        params_array4 = {}
+                        params_array5 = {}
+                        params_array6 = {}
+                        params_array7 = {}
+                        params_array8 = {}
+
+                      if snmpdevice.outlet_type == "MiniBoot_Outlet_4"
+                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager1|
+                          manager1.load_module('UPS-MIB')
+                          response1 = manager1.get(registers1)
+                          response1.each_varbind do |vb|
+                            if method = typeValue[vb.value.asn1_type]
+                              params_array1 = vb.value.send(method)
+                            else
+                              puts "Type '#{vb.value.asn1_type}' not recognized!"
+                            end
+                          end
+                        end
+
+                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager2|
+                          manager2.load_module('UPS-MIB')
+                          response2 = manager2.get(registers2)
+                          response2.each_varbind do |vb|
+                            if method2 = typeValue[vb.value.asn1_type]
+                              params_array2 = vb.value.send(method2)
+                            else
+                              puts "Type '#{vb.value.asn1_type}' not recognized!"
+                            end
+                          end
+                        end
+
+                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager3|
+                          manager3.load_module('UPS-MIB')
+                          response3 = manager3.get(registers3)
+                          response3.each_varbind do |vb|
+                            if method3 = typeValue[vb.value.asn1_type]
+                              params_array3 = vb.value.send(method3)
+                            else
+                              puts "Type '#{vb.value.asn1_type}' not recognized!"
+                            end
+                          end
+                        end
+
+                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager4|
+                          manager4.load_module('UPS-MIB')
+                          response4 = manager4.get(registers4)
+                          response4.each_varbind do |vb|
+                            if method4 = typeValue[vb.value.asn1_type]
+                              params_array4 = vb.value.send(method4)
+                            else
+                              puts "Type '#{vb.value.asn1_type}' not recognized!"
+                            end
+                          end
+                        end
+                        status1 = pp params_array1
+                        status2 = pp params_array2
+                        status3 = pp params_array3
+                        status4 = pp params_array4
+                        outletAll = 4
+                        total = status1 + status2 + status3 + status4
+                        offtotal =  4 - total
+
+                      elsif snmpdevice.outlet_type == "MiniBoot_Outlet_8"
+
+                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager1|
+                          manager1.load_module('UPS-MIB')
+                          response1 = manager1.get(registers1)
+                          response1.each_varbind do |vb|
+                            if method = typeValue[vb.value.asn1_type]
+                              params_array1 = vb.value.send(method)
+                            else
+                              puts "Type '#{vb.value.asn1_type}' not recognized!"
+                            end
+                          end
+                        end
+
+                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager2|
+                          manager2.load_module('UPS-MIB')
+                          response2 = manager2.get(registers2)
+                          response2.each_varbind do |vb|
+                            if method2 = typeValue[vb.value.asn1_type]
+                              params_array2 = vb.value.send(method2)
+                            else
+                              puts "Type '#{vb.value.asn1_type}' not recognized!"
+                            end
+                          end
+                        end
+
+                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager3|
+                          manager3.load_module('UPS-MIB')
+                          response3 = manager3.get(registers3)
+                          response3.each_varbind do |vb|
+                            if method3 = typeValue[vb.value.asn1_type]
+                              params_array3 = vb.value.send(method3)
+                            else
+                              puts "Type '#{vb.value.asn1_type}' not recognized!"
+                            end
+                          end
+                        end
+
+                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager4|
+                          manager4.load_module('UPS-MIB')
+                          response4 = manager4.get(registers4)
+                          response4.each_varbind do |vb|
+                            if method4 = typeValue[vb.value.asn1_type]
+                              params_array4 = vb.value.send(method4)
+                            else
+                              puts "Type '#{vb.value.asn1_type}' not recognized!"
+                            end
+                          end
+                        end
+
+                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager5|
+                          manager5.load_module('UPS-MIB')
+                          response5 = manager5.get(registers5)
+                          response5.each_varbind do |vb|
+                            if method5 = typeValue[vb.value.asn1_type]
+                              params_array5 = vb.value.send(method5)
+                            else
+                              puts "Type '#{vb.value.asn1_type}' not recognized!"
+                            end
+                          end
+                        end
+
+                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager6|
+                          manager6.load_module('UPS-MIB')
+                          response6 = manager6.get(registers6)
+                          response6.each_varbind do |vb|
+                            if method6 = typeValue[vb.value.asn1_type]
+                              params_array6 = vb.value.send(method6)
+                            else
+                              puts "Type '#{vb.value.asn1_type}' not recognized!"
+                            end
+                          end
+                        end
+
+                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager7|
+                          manager7.load_module('UPS-MIB')
+                          response7 = manager7.get(registers7)
+                          response7.each_varbind do |vb|
+                            if method7 = typeValue[vb.value.asn1_type]
+                              params_array7 = vb.value.send(method7)
+                            else
+                              puts "Type '#{vb.value.asn1_type}' not recognized!"
+                            end
+                          end
+                        end
+
+                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager8|
+                          manager8.load_module('UPS-MIB')
+                          response8 = manager8.get(registers8)
+                          response8.each_varbind do |vb|
+                            if method8 = typeValue[vb.value.asn1_type]
+                              params_array8 = vb.value.send(method8)
+                            else
+                              puts "Type '#{vb.value.asn1_type}' not recognized!"
+                            end
+                          end
+                        end
+                        status1 = pp params_array1
+                        status2 = pp params_array2
+                        status3 = pp params_array3
+                        status4 = pp params_array4
+                        status5 = pp params_array5
+                        status6 = pp params_array6
+                        status7 = pp params_array7
+                        status8 = pp params_array8
+                        outletAll = 8
+                        total = status1 + status2 + status3 + status4 + status5 + status6 + status7 + status8
+                        offtotal =  8 - total
+
+                      end
+
+                      else
+                        @status = 'Offline'
+                      end
+                    %>
+                  </div>
+                    <tr>
+                      <td><h6 class="text-white"><%= snmpdevice.device_name %></h6></td>
+                      <td style="text-align:center;"><a href="http://<%= snmpdevice.device_ip %>" target="_blank"><%= snmpdevice.device_ip %></a></td>
+                      <td class="<%= @status %> text-center">
+                          <%= @status %>
+                      </td>
+                      <td class="text-warning font-weight-bold"><%= outletAll %></td>
+                      <td class="text-success font-weight-bold"><h6><i class="fa fa- fa-plug" aria-hidden="true"></i> <%= total  %></h6></td>
+                      <td class="text-danger font-weight-bold"><h6><i class="fa fa-thin fa-plug" aria-hidden="true"></i> <%= offtotal %></h6></td>
+                      <td style="text-align:center;">
+                        <%= link_to '', snmpdevice, class:"fa fa-solid fa-arrow-right", title:"Show" %>
+                      </td>
+
+                      <td style="text-align:center;">
+                        <%= link_to '', edit_snmpdevice_path(snmpdevice), class:"fa fa-solid fa-edit", title:"Edit" %>
+                      </td>
+                      <td style="text-align:center;">
+                        <%= link_to '', snmpdevice, method: :delete, data: { confirm: 'Are you sure?' }, class:"fa fa-solid fa-trash", title:"Delete"%>
+
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <button class="btn-9 d-grid gap-2 d-md-flex justify-content-md-start">
+            <%= link_to new_snmpdevice_path :class=>"btn1" do %>Add MiniBoot Device<% end %>
+          </button>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <span class="d-grid gap-2 d-md-flex justify-content-md-center text-light">
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

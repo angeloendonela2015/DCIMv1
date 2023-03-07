@@ -1,0 +1,2 @@
+module SnmpdevicesHelper
+end

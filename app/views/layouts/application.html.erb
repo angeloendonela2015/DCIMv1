@@ -7,6 +7,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
 
@@ -15,7 +16,7 @@
     <script>
       setTimeout(function(){
          $("#requests").load("#requests");
-      },10000);
+      },120000);
     </script>
   </body>
 </html>

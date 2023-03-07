@@ -1,0 +1,40 @@
+<nav class="navbar lst fixed-top">
+  <div class="container-fluid">
+    <%= link_to root_path,  class:"navbar-brand mb-0 h1 lsttxt neon" do %>
+      D<%= image_tag "/assets/comspec.png", style:"width:auto;height:25px;", class:"mb-1" %>IM
+    <% end %>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <%= link_to root_path, class:"nav-link" do %>
+          <i class="fa fa-solid fa-home usr" title="HOME"></i>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to snmpdevices_path, class:"nav-link text-secondary text-white" do %>
+          MiniBoot
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to ssms_path, class:"nav-link text-secondary" do %>
+          Switches
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to users_path, class:"nav-link" do %>
+          <i class="fa fa-solid fa-user usr" title="Accounts"></i>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' }, class:"nav-link" do %>
+          <i class="fa fa-solid  fa-sign-in usr" title="Logout"></i>
+        <%end%>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="row mt-5 p-5">
+  <div class="col-sm-12 mx-auto">
+    <%= render 'form', snmpdevice: @snmpdevice %>
+  </div>
+</div>

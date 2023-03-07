@@ -3,7 +3,15 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    if logged_in?
+      if current_user.userinterface == "Administrator"
+        @users = User.all
+      elsif current_user.userinterface == "User"
+        redirect_to root_path
+      end
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /users/1 or /users/1.json
@@ -12,7 +20,11 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    if logged_in?
+      @user = User.new
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /users/1/edit

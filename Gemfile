@@ -59,6 +59,7 @@ group :development do
   gem 'will_paginate', '~> 3.3', '>= 3.3.1'
   gem 'popper_js', '~> 2.11', '>= 2.11.6'
   gem 'jquery-rails', '~> 4.5', '>= 4.5.1'
+  gem 'sys-cpu', '~> 1.0', '>= 1.0.6'
 end
 
 
