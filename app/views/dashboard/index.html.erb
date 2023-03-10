@@ -1,49 +1,62 @@
-<div class="container-xxl p-5" id="requests">
-  <nav class="navbar lst fixed-top">
-    <div class="container-fluid">
-      <%= link_to root_path,  class:"navbar-brand mb-0 h1 lsttxt neon" do %>
-        D<%= image_tag "/assets/comspec.png", style:"width:auto;height:25px;", class:"mb-1" %>IM
-      <% end %>
-      <ul class="nav justify-content-end">
-        <li class="nav-item">
-          <%= link_to root_path, class:"nav-link" do %>
-            <i class="fa fa-solid fa-home text-white usr" title="HOME"></i>
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <%= link_to snmpdevices_path, class:"nav-link text-secondary" do %>
-            MiniBoot
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <%= link_to ssms_path, class:"nav-link text-secondary" do %>
-            Switches
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <%= link_to users_path, class:"nav-link" do %>
-            <i class="fa fa-solid fa-user usr" title="Accounts"></i>
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' }, class:"nav-link" do %>
-            <i class="fa fa-solid  fa-sign-in usr" title="Logout"></i>
-          <%end%>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<nav class="navbar lst fixed-top">
+  <div class="container-fluid">
+    <%= link_to root_path,  class:"navbar-brand mb-0 h1 lsttxt neon" do %>
+      D<%= image_tag "/assets/comspec.png", style:"width:auto;height:25px;", class:"mb-1" %>IM
+    <% end %>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <%= link_to root_path, class:"nav-link text-secondary text-white" do %>
+          Dashboard
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to snmpdevices_path, class:"nav-link text-secondary" do %>
+          MiniBoot
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to ssms_path, class:"nav-link text-secondary" do %>
+          Switches
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-secondary" target="_blank">Across</a>
+      </li>
+      <li class="nav-item">
+        <%= link_to users_path, class:"nav-link text-secondary" do %>
+          <%= current_user.userinterface %>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' }, class:"nav-link text-secondary" do %>
+          Logout
+        <%end%>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-  <div class="row mt-2">
-    <div class="col-sm-9 mt-2 p-2">
+<div class="container-fluid mt-4" id="requests">
+
+
+  <div class="row mt-4">
+    <div class="col-sm-4 mt-5 p-4">
+      <div class="list-group">
+        <div class="list-group-item list-group-item-action active">
+          <i class="fa fa-solid fa-server" style="color:#fff;""></i>
+          Datacenter
+        </div>
+        <div class="list-group-item bg-dark bg-gradient text-light">A second link item</div>
+      </div>
+    </div>
+
+    <div class="col-sm-5 mt-5 p-4">
       <div class="list-group">
         <li href="#" class="list-group-item list-group-item-action active">
-          <%= link_to snmpdevices_path, :class=>"header-dropdown m-r--5" do %>
-              <i class="fa fa-solid fa-code-fork" style="color:#fff;"></i>
-              MiniBoot Devices
-          <%end%>
+          <i class="fa fa-solid fa-code-fork" style="color:#fff;"></i>
+          MiniBoot Devices
         </li>
-        <li class="list-group-item list-group-item-action">
+        <li class="list-group-item bg-dark bg-gradient text-lightn">
           <div class="table-responsive rounded">
             <table class="table table-dark table-hover rounded">
 
@@ -269,42 +282,91 @@
       </div>
     </div>
 
-    <div class="col-sm-3 mt-2 p-2">
+    <div class="col-sm-3 mt-5 p-4">
       <div class="list-group">
-        <li href="#" class="list-group-item list-group-item-action active">
-          <%= link_to ssms_path, :class=>"header-dropdown m-r--5" do %>
-              <i class="fa fa-solid fa-sitemap" style="color:#fff;"></i>
-              SWITCH
-          <%end%>
-        </li>
+        <div href="#" class="list-group-item list-group-item-action active">
+          <i class="fa fa-solid fa-sitemap" style="color:#fff;"></i>
+          Switches
+        </div>
         <div class="anyClass" id="anyClass">
           <% @ssms.each do |ssm| %>
             <div class="d-none">
               <%=
-                ssm_ip  = ssm.ipaddress
-                p1 = Net::Ping::External.new(ssm_ip,timeout=0.9)
-                status_ip = p p1.ping?
-                if status_ip == true
-                  @staus = 'Online'
+                host = ssm.ipaddress
+                rtt = Benchmark.realtime do
+                  pinger = Net::Ping::External.new(host)
+                  pinger.ping
+                end
+
+                if rtt
+                  if (rtt).round(4) < 3.0000
+                    rttResult = (rtt).round(4)
+                    msString = "ms"
+                    rttPass = "d-none"
+                  else
+                    rttResult = "Offline"
+                  end
+
                 else
-                  @staus = 'Offline'
+                  rttResult = "failed"
                 end
               %>
             </div>
-            <li class="list-group-item list-group-item-action">
+
+            <li class="list-group-item bg-dark bg-gradient <%= rttPass %> text-light <%= rttResult %>" id="myList">
               <div class="row">
                 <div class="col text-truncate">
-                  <small><%= ssm.unitname %></small>
+                  <small title="IP: <%= ssm.ipaddress %>"><%= ssm.unitname %></small>
                 </div>
-                <div class="col <%= @staus %> text-end">
-                  <i class="fa fa-circle"></i>
+                <div class="col text-end">
+                  <small class="text-center <%= rttResult %>">
+                    <%= rttResult %>....
+                   </small>
                 </div>
               </div>
             </li>
+
+          <% end %>
+
+          <% @ssms.each do |ssm| %>
+            <div class="d-none">
+              <%=
+                host = ssm.ipaddress
+                rtt = Benchmark.realtime do
+                  pinger = Net::Ping::External.new(host)
+                  pinger.ping
+                end
+
+                if rtt
+                  if (rtt).round(4) < 3.0000
+                    rttResult = (rtt).round(4)
+                    msString = "ms"
+                    rttPass = "text-success"
+                  else
+                    rttResult = "d-none"
+                  end
+
+                else
+                  rttResult = "failed"
+                end
+              %>
+            </div>
+
+            <li class="list-group-item bg-dark bg-gradient text-light <%= rttResult %>" id="myList">
+              <div class="row">
+                <div class="col text-truncate">
+                  <small title="IP: <%= ssm.ipaddress %>"><%= ssm.unitname %></small>
+                </div>
+                <div class="col text-end">
+                  <small class="text-center <%= rttPass %>">
+                    <%= rttResult %> <%= msString %>
+                   </small>
+                </div>
+              </div>
+            </li>
+
           <% end %>
         </div>
-
-
         <div class="list-group-item list-group-item-action active">
           <div class="row">
             <div class="col">

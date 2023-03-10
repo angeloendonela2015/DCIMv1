@@ -11,6 +11,7 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
+require 'benchmark'
 require 'net/ping'
 require 'snmp'
 require 'netsnmp'

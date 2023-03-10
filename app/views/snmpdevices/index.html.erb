@@ -6,8 +6,8 @@
       <% end %>
       <ul class="nav justify-content-end">
         <li class="nav-item">
-          <%= link_to root_path, class:"nav-link" do %>
-            <i class="fa fa-solid fa-home usr" title="HOME"></i>
+          <%= link_to root_path, class:"nav-link text-secondary" do %>
+            Dashboard
           <% end %>
         </li>
         <li class="nav-item">
@@ -21,13 +21,16 @@
           <% end %>
         </li>
         <li class="nav-item">
-          <%= link_to users_path, class:"nav-link" do %>
-            <i class="fa fa-solid fa-user usr" title="Accounts"></i>
+          <a href="#" class="nav-link text-secondary" target="_blank">Across</a>
+        </li>
+        <li class="nav-item">
+          <%= link_to users_path, class:"nav-link text-secondary" do %>
+            <%= current_user.userinterface %>
           <% end %>
         </li>
         <li class="nav-item">
-          <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' }, class:"nav-link" do %>
-            <i class="fa fa-solid  fa-sign-in usr" title="Logout"></i>
+          <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' }, class:"nav-link text-secondary" do %>
+            Logout
           <%end%>
         </li>
       </ul>
@@ -299,7 +302,7 @@
               </table>
             </div>
           <button class="btn-9 d-grid gap-2 d-md-flex justify-content-md-start">
-            <%= link_to new_snmpdevice_path :class=>"btn1" do %>Add MiniBoot Device<% end %>
+            <%= link_to new_snmpdevice_path, :class=>"btn1" do %>Add MiniBoot Device<% end %>
           </button>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <span class="d-grid gap-2 d-md-flex justify-content-md-center text-light">

@@ -20,12 +20,16 @@
 //= require chartkick
 //= require Chart.bundle
 
-
 $.ajaxSetup({
   headers: {
     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
   }
 });
+
+setTimeout(function(){
+   $("#requests").load("#requests");
+},500);
+
 /*!
   * Bootstrap v5.2.2 (https://getbootstrap.com/)
   * Copyright 2011-2022 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
