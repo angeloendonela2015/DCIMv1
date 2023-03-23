@@ -4,7 +4,8 @@ class SsmsController < ApplicationController
   # GET /ssms or /ssms.json
   def index
     if logged_in?
-      @ssms = Ssm.where("unitname LIKE ? OR ipaddress LIKE ?", "%#{params[:ssm_search]}%", "%#{params[:ssm_search]}").paginate(page: params[:page], per_page: 10)
+      @ssms = Ssm.where("unitname LIKE ? OR ipaddress LIKE ?", "%#{params[:ssm_search]}%", "%#{params[:ssm_search]}")
+
     else
       redirect_to login_path
     end
@@ -15,22 +16,21 @@ class SsmsController < ApplicationController
     if logged_in?
       @echoIP = @ssm.ipaddress
       @echoName =  @ssm.unitname
-
-      ssm_ip  = @echoIP
-      p1 = Net::Ping::External.new(ssm_ip,timeout=0.9)
-      status_ip = p1.ping?
-      if status_ip == true
-        @echoStatus = 'Online'
-      else
-        @echoStatus = 'Offline'
-        @include = redirect_to ssms_path(@ssm.id, notice: "Sorry this link cannot ping!")
+      rtt = Benchmark.realtime do
+        pinger = Net::Ping::External.new(@echoIP)
+        pinger.ping
       end
 
-      starttime = Time.now
-      Net::Ping::External.new(@ssm.ipaddress,timeout=0.9)
-      @responsetime = Time.now - starttime
-      @responseresult = "%f" % "#{ @responsetime }"
-      @echo = @ssm.ipaddress
+      if rtt
+        if (rtt).round(4) < 3.0000
+          @rttResult = (rtt).round(4)
+        else
+          @rttResult = (rtt).round(4)
+        end
+
+      else
+        @rttResult = "failed"
+      end
     else
       redirect_to login_path
     end

@@ -1,0 +1,96 @@
+<nav class="navbar lst fixed-top">
+  <div class="container-fluid">
+    <%= link_to root_path,  class:"navbar-brand mb-0 h1 lsttxt neon" do %>
+      D<%= image_tag "/assets/comspec.png", style:"width:auto;height:25px;", class:"mb-1" %>IM
+    <% end %>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <%= link_to users_path, class:"nav-link text-secondary" do %>
+          <%= current_user.firstname %>
+          <%= current_user.lastname %>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to logout_path, data: { confirm: 'Are you sure you want to logout?' }, class:"nav-link text-secondary" do %>
+          Logout
+        <%end%>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="sidebar" id="sidebar">
+  <ul>
+    <li>
+      <%= link_to root_path do %>
+      <i class="fa fa-solid fa-home pr-5"></i>
+        <small style="margin-left:20px;" class="fs-6">Dashboard</small>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to nocs_path do %>
+        <i class="fa fa-solid fa-server pr-5"></i>
+        <small style="margin-left:20px;" class="fs-6">NOC</small>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to snmpdevices_path do %>
+        <i class="fa fa- fa-plug pr-5"></i>
+        <small style="margin-left:20px;" class="fs-6">MiniBoot</small>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to ssms_path do %>
+      <i class="fa fa-solid fa-sitemap pr-5"></i>
+        <small style="margin-left:20px;" class="fs-6">Switches</small>
+      <% end %>
+    </li>
+    <li>
+      <a href="http://<%= @accrossLink %>" target="_blank">
+        <i class="fa fa-link fa-solid pr-5"></i>
+        <small style="margin-left:20px;" class="fs-6"> Across </small>
+      </a>
+    </li>
+    <li>
+      <a href="#" id="btnFullscreen">
+        <i class="fa fa-arrows-alt fa-solid pr-5"></i>
+        <small style="margin-left:20px;" class="fs-6"> Fullscreen </small>
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="container mt-5 pt-5">
+  <div class="col-sm-12">
+    <div class="list-group">
+      <div class="list-group-item list-group-item-action active">
+        <div class="row">
+          <div class="col-6">
+            <h1>
+              <i class="fa fa-solid fa-server f-2" style="color:#fff;""></i>
+              Network Operation Center
+            </h1>
+          </div>
+          <div class="col-6">
+            <p id="notice"><%= notice %></p>
+          </div>
+        </div>
+      </div>
+      <div class="list-group-item bg-dark bg-gradient text-light">
+        <div class="row">
+          <div class="col-6 border-end">
+            <div><%= @noc.sensorename %></div>
+            <div><%= @noc.oid %></div>
+          </div>
+          <div class="col-6">
+            <div><%= @noc.ipname %></div>
+            <div><%= @noc.ipaddress %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
+    <%= link_to 'Edit', edit_noc_path(@noc), class:"btn btn-outline-secondary text-light" %>
+    <%= link_to 'Back', nocs_path, class:"btn btn-outline-secondary text-light" %>
+  </div>
+</div>

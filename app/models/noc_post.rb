@@ -1,0 +1,2 @@
+class NocPost < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class Noc < ApplicationRecord
+end

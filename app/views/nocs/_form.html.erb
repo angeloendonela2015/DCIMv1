@@ -1,0 +1,52 @@
+<%= form_with(model: noc, local: true) do |form| %>
+  <% if noc.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(noc.errors.count, "error") %> prohibited this noc from being saved:</h2>
+
+      <ul>
+      <% noc.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row p-3">
+    <div class="col-5 border-end">
+      <div class="row">
+        <div class="col-12">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3"><%= form.label "Sensore Name :" %></span>
+            <%= form.text_field :sensorename, class:"form-control" %>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3"><%= form.label "Sensore :" %></span>
+            <%= form.text_field :oid, class:"form-control" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="row">
+        <div class="col-12">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3"><%= form.label "IP Label :" %></span>
+            <%= form.text_field :ipname, class:"form-control" %>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3"><%= form.label "Ipaddress :" %></span>
+            <%= form.text_field :ipaddress, class:"form-control" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="btn-group btn-group-sm pt-4">
+        <%= form.submit class:"btn btn-outline-secondary text-light" %>
+      </div>
+    </div>
+  </div>
+<% end %>

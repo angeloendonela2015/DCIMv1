@@ -18,6 +18,7 @@ require 'netsnmp'
 require 'will_paginate/array'
 require "sys/cpu"
 require "pp"
+require 'benchmark/ips'
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems

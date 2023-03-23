@@ -10,15 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_28_031926) do
+ActiveRecord::Schema.define(version: 2023_03_23_022855) do
 
-  create_table "devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "unitname"
-    t.string "ipaddress"
-    t.string "sensore_type"
-    t.string "community"
+  create_table "nocs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "sensorename"
     t.string "oid"
-    t.string "alarm"
+    t.string "ipname"
+    t.string "ipaddress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

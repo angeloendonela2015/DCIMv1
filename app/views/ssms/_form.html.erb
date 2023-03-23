@@ -1,7 +1,10 @@
-<div class="col-sm-8 mt-5">
+<div class="col p-5 mt-5">
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+    <button type="button" class="btn btn-primary btn-sm" id="add-form-button" name="button">Add Forms</button>
+  </div>
   <div class="card">
-    <div class="card-body">
-      <h5 class="card-title text-light">SERVER STATUS MONITORING</h5>
+    <div class="card-body" id="form-template">
+      <h5 class="card-title text-light">SWITCH</h5>
       <%= form_with(model: ssm, local: true) do |form| %>
         <% if ssm.errors.any? %>
           <div id="error_explanation">
@@ -14,16 +17,17 @@
             </ul>
           </div>
         <% end %>
+        <div id="form-template">
+          <div class="row mt-3" id="form-container">
+            <div class="col-md-6">
+              <%= form.label :unitname, class:"form-label text-light" %>
+              <%= form.text_field :unitname, class:"form-control form-control-sm" %>
+            </div>
 
-        <div class="row mt-3">
-          <div class="col-md-6">
-            <%= form.label :unitname, class:"form-label text-light" %>
-            <%= form.text_field :unitname, class:"form-control form-control-sm" %>
-          </div>
-
-          <div class="col-md-6">
-            <%= form.label :ipaddress, class:"form-label text-light" %>
-            <%= form.text_field :ipaddress, class:"form-control form-control-sm" %>
+            <div class="col-md-6">
+              <%= form.label :ipaddress, class:"form-label text-light" %>
+              <%= form.text_field :ipaddress, class:"form-control form-control-sm" %>
+            </div>
           </div>
         </div>
 

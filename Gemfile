@@ -61,6 +61,7 @@ group :development do
   gem 'jquery-rails', '~> 4.5', '>= 4.5.1'
   gem 'sys-cpu', '~> 1.0', '>= 1.0.6'
   gem 'benchmark', '~> 0.2.1'
+  gem 'benchmark-ips', '~> 2.12'
 end
 
 
