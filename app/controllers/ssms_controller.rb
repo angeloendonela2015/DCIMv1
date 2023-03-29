@@ -5,7 +5,7 @@ class SsmsController < ApplicationController
   def index
     if logged_in?
       @ssms = Ssm.where("unitname LIKE ? OR ipaddress LIKE ?", "%#{params[:ssm_search]}%", "%#{params[:ssm_search]}")
-
+      @accrossLink = 'http://192.168.124.141/dominus/options/'
     else
       redirect_to login_path
     end

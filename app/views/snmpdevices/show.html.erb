@@ -20,7 +20,7 @@
 </nav>
 
 <div class="container-fluid">
-  <div class="sidebar">
+  <div class="sidebar" id="sidebar">
     <ul>
       <li>
         <%= link_to root_path do %>
@@ -29,10 +29,10 @@
         <% end %>
       </li>
       <li>
-        <a href="#">
-        <i class="fa fa-solid fa-server pr-5"></i>
+        <%= link_to nocs_path do %>
+          <i class="fa fa-solid fa-server pr-5"></i>
           <small style="margin-left:20px;" class="fs-6">NOC</small>
-        </a>
+        <% end %>
       </li>
       <li>
         <%= link_to snmpdevices_path do %>
@@ -47,7 +47,7 @@
         <% end %>
       </li>
       <li>
-        <a href="#" target="_blank">
+        <a href="<%= @accrossLink %>" target="_blank">
           <i class="fa fa-link fa-solid pr-5"></i>
           <small style="margin-left:20px;" class="fs-6"> Across </small>
         </a>

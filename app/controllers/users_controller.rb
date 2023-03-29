@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     if logged_in?
+      @accrossLink = 'http://192.168.124.141/dominus/options/'
       if current_user.userinterface == "Administrator"
         @users = User.all
       elsif current_user.userinterface == "User"

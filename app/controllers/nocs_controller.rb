@@ -2,9 +2,13 @@ class NocsController < ApplicationController
   before_action :set_noc, only: %i[ show edit update destroy ]
 
   # GET /nocs or /nocs.json
+
+
   def index
     if logged_in?
       @nocs = Noc.all
+      @accrossLink = 'http://192.168.124.141/dominus/options/'
+
     else
       redirect_to login_path
     end
@@ -27,6 +31,7 @@ class NocsController < ApplicationController
   def edit
     if logged_in?
       @nocs = Noc.all
+      @ssms = Ssm.all
     else
       redirect_to login_path
     end

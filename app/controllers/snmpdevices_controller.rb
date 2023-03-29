@@ -4,6 +4,7 @@ class SnmpdevicesController < ApplicationController
   # GET /snmpdevices or /snmpdevices.json
   def index
     @snmpdevices = Snmpdevice.all
+    @accrossLink = 'http://192.168.124.141/dominus/options/'
   end
 
   # GET /snmpdevices/1 or /snmpdevices/1.json
