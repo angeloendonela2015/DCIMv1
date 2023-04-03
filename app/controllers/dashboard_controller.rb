@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
       @firstnameDisplay = current_user.firstname[0]
       @ssms = Ssm.all
       @snmpdevices = Snmpdevice.all
+      @nocs = Noc.all
       loginSuccess = "You are successfully logged in."
       @accrossLink = 'http://192.168.124.141/dominus/options/'
 

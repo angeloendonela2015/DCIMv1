@@ -18,7 +18,7 @@
     </ul>
   </div>
 </nav>
-
+<%= @message %>
 <div class="sidebar" id="sidebar">
   <ul>
     <li>
@@ -90,7 +90,29 @@
             <i class="fa fa-solid fa-server f-2" style="color:#fff;""></i>
             Network Operation Center
           </div>
-          <div class="list-group-item bg-dark bg-gradient text-light">A second link item</div>
+          <% @nocs.each do |noc| %>
+            <div class="list-group-item bg-dark bg-gradient text-light d-none">
+              <div class="row text-center">
+                <div class="col-6">
+                  <%= noc.sensorename %>
+                </div>
+                <div class="col-6">
+                  <%= noc.ipname %>
+                </div>
+              </div>
+              <div class="row text-center">
+                <div class="col-6">
+                  <%= noc.oid %>
+                </div>
+                <div class="col-6">
+                  <%= noc.ipaddress%>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div class="list-group-item bg-dark bg-gradient text-light text-center">
+            <h4>This is currently not available.</h4>
+          </div>
         </div>
       </div>
 

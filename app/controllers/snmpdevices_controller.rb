@@ -3,8 +3,12 @@ class SnmpdevicesController < ApplicationController
 
   # GET /snmpdevices or /snmpdevices.json
   def index
-    @snmpdevices = Snmpdevice.all
-    @accrossLink = 'http://192.168.124.141/dominus/options/'
+    if logged_in?
+      @snmpdevices = Snmpdevice.all
+      @accrossLink = 'http://192.168.124.141/dominus/options/'
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /snmpdevices/1 or /snmpdevices/1.json
@@ -513,16 +517,20 @@ class SnmpdevicesController < ApplicationController
 
   # POST /snmpdevices or /snmpdevices.json
   def create
-    @snmpdevice = Snmpdevice.new(snmpdevice_params)
+    if logged_in?
+      @snmpdevice = Snmpdevice.new(snmpdevice_params)
 
-    respond_to do |format|
-      if @snmpdevice.save
-        format.html { redirect_to snmpdevice_url(@snmpdevice), notice: "Snmpdevice was successfully created." }
-        format.json { render :show, status: :created, location: @snmpdevice }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @snmpdevice.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @snmpdevice.save
+          format.html { redirect_to snmpdevice_url(@snmpdevice), notice: "Snmpdevice was successfully created." }
+          format.json { render :show, status: :created, location: @snmpdevice }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @snmpdevice.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to login_path
     end
   end
 

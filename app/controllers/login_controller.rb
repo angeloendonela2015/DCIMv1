@@ -8,10 +8,12 @@ class LoginController < ApplicationController
     sbmitTagDanger = "Your username or password does not match"
     successLogin = "You are successfully logged in."
     if sbmitTagDanger == notice
-      @notif = "text-light text-center bg-danger rounded"
+      @notif = "text-light text-center rounded border border-5 border-danger"
+      @reboot = "d-none"
       return
     elsif sbmitTagSuccess == notice
       @notif = "text-light text-center bg-success rounded"
+      @reboot = "d-none"
       return
     elsif successLogin == notice
       @notif = "text-light text-center bg-success rounded"
