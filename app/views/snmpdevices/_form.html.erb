@@ -3,8 +3,8 @@
     <div class="list-group-item list-group-item-action active">
       <h5 class="card-title">MiniBoot Device</h5>
     </div>
-    <div class="list-group-item list-group-item-action p-5">
-      <%= form_with(model: snmpdevice, local: true, remote: true) do |form| %>
+    <div class="list-group-item bg-dark bg-gradient text-light p-5">
+      <%= form_with(model: snmpdevice, local: true, remote: true, html:{ class:"needs-validation", novalidate: true }) do |form| %>
         <% if snmpdevice.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(snmpdevice.errors.count, "error") %> prohibited this snmpdevice from being saved:</h2>
@@ -20,20 +20,32 @@
         <div class="row my-2">
           <div class="col-md-3">
             <%= form.label "Device Name", class:"form-label" %>
-            <%= form.text_field :device_name, class:"form-control form-control-sm" %>
+            <%= form.text_field :device_name, class:"form-control form-control-sm", required: true %>
+             <div class="invalid-feedback text-end">
+               Please provide a valid name of device.
+             </div>
           </div>
           <div class="col-md-3">
             <%= form.label "IP Address", class:"form-label" %>
-            <%= form.text_field :device_ip, class:"form-control form-control-sm" %>
+            <%= form.text_field :device_ip, class:"form-control form-control-sm", id:"ipaddress", required: true %>
+            <div class="invalid-feedback text-end">
+              Please provide a valid IP Address.
+            </div>
           </div>
           <div class="col-md-3">
             <%= form.label :community_type, class:"form-label" %>
-            <%= form.select(:community_type,["public", "private"],{},{class:"form-control form-control-sm"}) %>
+            <%= form.select(:community_type,["public", "private"],{},{class:"form-control form-control-sm", required: true}) %>
+            <div class="invalid-feedback text-end">
+              Please provide a valid community type.
+            </div>
           </div>
 
           <div class="col-md-3">
             <%= form.label :outlet_type, class:"form-label" %>
-            <%= form.select :outlet_type, options_for_select([['MiniBoot Outlet 4','MiniBoot_Outlet_4'],['MiniBoot Outlet 8','MiniBoot_Outlet_8']]), {  }, class:"form-control form-control-sm", id:"my_select" %>
+            <%= form.select :outlet_type, options_for_select([['MiniBoot Outlet 4','MiniBoot_Outlet_4'],['MiniBoot Outlet 8','MiniBoot_Outlet_8']]), {}, class:"form-control form-control-sm", id:"my_select" %>
+            <div class="invalid-feedback text-end">
+              Please provide a valid row.
+            </div>
           </div>
         </div>
 
@@ -43,13 +55,19 @@
             <div class="row mb-3">
               <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5" %>
               <div class="col-sm-6">
-                <%= form.text_field :oid_outletname1, class:"form-control form-control-sm" %>
+                <%= form.text_field :oid_outletname1, class:"form-control form-control-sm", required: true %>
+                <div class="invalid-feedback text-end">
+                  <small>Please provide a valid oid name.</small>
+                </div>
               </div>
             </div>
             <div class="row mb-3">
               <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5"%>
               <div class="col-sm-6">
-                <%= form.text_field :oid_status1, class:"form-control form-control-sm" %>
+                <%= form.text_field :oid_status1, class:"form-control form-control-sm", required: true %>
+                <div class="invalid-feedback text-end">
+                  <small>Please provide a valid status.</small>
+                </div>
               </div>
             </div>
           </div>
@@ -59,13 +77,19 @@
             <div class="row mb-3">
               <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5" %>
               <div class="col-sm-6">
-                <%= form.text_field :oid_outletname2, class:"form-control form-control-sm" %>
+                <%= form.text_field :oid_outletname2, class:"form-control form-control-sm", required: true %>
+                <div class="invalid-feedback text-end">
+                  <small>Please provide a valid oid name.</small>
+                </div>
               </div>
             </div>
             <div class="row mb-3">
               <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5"%>
               <div class="col-sm-6">
-                <%= form.text_field :oid_status2, class:"form-control form-control-sm" %>
+                <%= form.text_field :oid_status2, class:"form-control form-control-sm", required: true %>
+                <div class="invalid-feedback text-end">
+                  <small>Please provide a valid status.</small>
+                </div>
               </div>
             </div>
           </div>
@@ -75,13 +99,19 @@
             <div class="row mb-3">
               <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5" %>
               <div class="col-sm-6">
-                <%= form.text_field :oid_outletname3, class:"form-control form-control-sm" %>
+                <%= form.text_field :oid_outletname3, class:"form-control form-control-sm", required: true %>
+                <div class="invalid-feedback text-end">
+                  <small>Please provide a valid oid name.</small>
+                </div>
               </div>
             </div>
             <div class="row mb-3">
               <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5"%>
               <div class="col-sm-6">
-                <%= form.text_field :oid_status3, class:"form-control form-control-sm" %>
+                <%= form.text_field :oid_status3, class:"form-control form-control-sm", required: true %>
+                <div class="invalid-feedback text-end">
+                  <small>Please provide a valid status.</small>
+                </div>
               </div>
             </div>
           </div>
@@ -91,32 +121,43 @@
             <div class="row mb-3">
               <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5" %>
               <div class="col-sm-6">
-                <%= form.text_field :oid_outletname4, class:"form-control form-control-sm" %>
+                <%= form.text_field :oid_outletname4, class:"form-control form-control-sm", required: true %>
+                <div class="invalid-feedback text-end">
+                  <small>Please provide a valid oid name.</small>
+                </div>
               </div>
             </div>
             <div class="row mb-3">
               <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5"%>
               <div class="col-sm-6">
-                <%= form.text_field :oid_status4, class:"form-control form-control-sm" %>
+                <%= form.text_field :oid_status4, class:"form-control form-control-sm", required: true %>
+                <div class="invalid-feedback text-end">
+                  <small>Please provide a valid status.</small>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        <div id="my_div">
-          <div class="row py-3" >
+        <section id="dist">
+          <div class="row py-3" id="oidInput" >
             <div class="col-md-3">
               <h4 class="col-sm-12 text-center">Outlet 5</h4>
               <div class="row mb-3">
                 <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5", id:"oidName5" %>
                 <div class="col-sm-6">
-                  <%= form.text_field :oid_outletname5, class:"form-control form-control-sm", id:"oidNameInput5" %>
+                  <%= form.text_field :oid_outletname5, class:"form-control form-control-sm classForm", id:"oidNameInput5", required: true %>
+                  <div class="invalid-feedback text-end">
+                    <small>Please provide a valid oid name.</small>
+                  </div>
                 </div>
               </div>
               <div class="row mb-3">
                 <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5", id:"oidStatus5" %>
                 <div class="col-sm-6">
-                  <%= form.text_field :oid_status5, class:"form-control form-control-sm", id:"ouiStatusInput5" %>
+                  <%= form.text_field :oid_status5, class:"form-control form-control-sm classForm", id:"ouiStatusInput5", required: true %>
+                  <div class="invalid-feedback text-end">
+                    <small>Please provide a valid status.</small>
+                  </div>
                 </div>
               </div>
             </div>
@@ -126,13 +167,19 @@
               <div class="row mb-3">
                 <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5", id:"oidName6" %>
                 <div class="col-sm-6">
-                  <%= form.text_field :oid_outletname6, class:"form-control form-control-sm", id:"oidNameInput6" %>
+                  <%= form.text_field :oid_outletname6, class:"form-control form-control-sm classForm", id:"oidNameInput6", required: true %>
+                  <div class="invalid-feedback text-end">
+                    <small>Please provide a valid oid name.</small>
+                  </div>
                 </div>
               </div>
               <div class="row mb-3">
                 <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5", id:"oidStatus6" %>
                 <div class="col-sm-6">
-                  <%= form.text_field :oid_status6, class:"form-control form-control-sm", id:"ouiStatusInput6" %>
+                  <%= form.text_field :oid_status6, class:"form-control form-control-sm classForm", id:"ouiStatusInput6", required: true %>
+                  <div class="invalid-feedback text-end">
+                    <small>Please provide a valid status.</small>
+                  </div>
                 </div>
               </div>
             </div>
@@ -142,13 +189,19 @@
               <div class="row mb-3">
                 <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5", id:"oidName7" %>
                 <div class="col-sm-6">
-                  <%= form.text_field :oid_outletname7, class:"form-control form-control-sm", id:"oidNameInput7" %>
+                  <%= form.text_field :oid_outletname7, class:"form-control form-control-sm classForm", id:"oidNameInput7", required: true %>
+                  <div class="invalid-feedback text-end">
+                    <small>Please provide a valid oid name.</small>
+                  </div>
                 </div>
               </div>
               <div class="row mb-3">
                 <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5", id:"oidStatus7"%>
                 <div class="col-sm-6">
-                  <%= form.text_field :oid_status7, class:"form-control form-control-sm", id:"ouiStatusInput7" %>
+                  <%= form.text_field :oid_status7, class:"form-control form-control-sm classForm", id:"ouiStatusInput7", required: true %>
+                  <div class="invalid-feedback text-end">
+                    <small>Please provide a valid status.</small>
+                  </div>
                 </div>
               </div>
             </div>
@@ -158,19 +211,24 @@
               <div class="row mb-3">
                 <%= form.label "OID Name", class:"col-sm-6 col-form-label text-end px-5", id:"oidName8" %>
                 <div class="col-sm-6">
-                  <%= form.text_field :oid_outletname8, class:"form-control form-control-sm", id:"oidNameInput8" %>
+                  <%= form.text_field :oid_outletname8, class:"form-control form-control-sm classForm", id:"oidNameInput8", required: true %>
+                  <div class="invalid-feedback text-end">
+                    <small>Please provide a valid oid name.</small>
+                  </div>
                 </div>
               </div>
               <div class="row mb-3">
                 <%= form.label "OID Status", class:"col-sm-6 col-form-label text-end px-5", id:"oidStatus8" %>
                 <div class="col-sm-6">
-                  <%= form.text_field :oid_status8, class:"form-control form-control-sm", id:"ouiStatusInput8" %>
+                  <%= form.text_field :oid_status8, class:"form-control form-control-sm classForm", id:"ouiStatusInput8", required: true %>
+                  <div class="invalid-feedback text-end">
+                    <small>Please provide a valid status.</small>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
+        </section>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
           <%= form.submit class:"btn btn-primary btn-sm" %>
@@ -180,3 +238,7 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+
+</script>

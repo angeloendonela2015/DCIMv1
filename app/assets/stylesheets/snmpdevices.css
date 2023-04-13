@@ -1,0 +1,8 @@
+#dist {
+  display: none;
+  transition: all 0.4s ease-in-out;
+}
+
+#oidInput{
+  visibility: hidden;
+}
