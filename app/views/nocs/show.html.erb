@@ -53,19 +53,17 @@
     </li>
   </ul>
 </div>
+<p id="notice" value="<%= notice %>"></p>
 <div class="container mt-5 pt-5">
   <div class="col-sm-12">
     <div class="list-group">
       <div class="list-group-item list-group-item-action active">
         <div class="row">
-          <div class="col-6">
+          <div class="col-12">
             <h1>
               <i class="fa fa-solid fa-server f-2" style="color:#fff;""></i>
               Network Operation Center
             </h1>
-          </div>
-          <div class="col-6">
-            <p id="notice"><%= notice %></p>
           </div>
         </div>
       </div>
@@ -88,3 +86,11 @@
     <%= link_to 'Back', nocs_path, class:"btn btn-outline-secondary text-light" %>
   </div>
 </div>
+<script type="text/javascript">
+  var noc = document.getElementById("notice").getAttribute("value");
+  if (noc === "Noc was successfully created."){
+    sweetAlert(noc);
+  } else if (noc == "Noc was successfully updated.") {
+    sweetAlert(noc);
+  }
+</script>

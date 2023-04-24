@@ -54,20 +54,35 @@
       </li>
     </ul>
   </div>
-
-
-
-
-  <div class="col-sm-12 mt-2">
-    <p id="notice"><%= notice %><%= @include %></p>
+  <p id="notice"><%= notice %><%= @include %></p>
+  <div class="row">
+  <div class="col-sm-3">
+    <div class="card p-2">
+      <div class="card-body bg-dark bg-gradient text-light">
+        <h5 class="card-title text-light "><i class="fa fa-solid fa-user"> </i> <%= current_user.firstname %> <%= current_user.lastname %></h5>
+        <%= link_to edit_display_path(@display), title: "Edit Display" do %>
+        <div class="row">
+          <div class="col-6 mt-5 pl-2">
+            <h4><%= @display.title %></h4>
+            <h6><%= @display.subtitle %></h6>
+          </div>
+          <div class="col-6">
+            <%= image_tag url_for(@display.logo), class:"img-fluid rounded mx-auto d-block", style:"width:auto; height:10rem;" %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-9">
     <div class="card">
-      <div class="card-body">
+      <div class="card-body bg-dark bg-gradient text-light ">
         <div class="container">
           <div class="row">
-            <div class="col-3">
-              <h5 class="card-title text-light te"><i class="fa fa-solid fa-user"> </i> USERS</h5>
+            <div class="col-6">
+
             </div>
-            <div class="col-9">
+            <div class="col-6">
               <%= form_tag ssms_path, :method => "GET" do %>
                 <div class="input-group input-group-sm mb-3">
                   <%= text_field_tag :search, params[:search], class:"form-control", placeholder:"Search Server Name" %>
@@ -93,14 +108,14 @@
 
               <tbody>
                 <% @users.each do |user| %>
-                  <tr>
-                    <td><%= user.firstname %></td>
-                    <td><%= user.middlename %></td>
-                    <td><%= user.lastname %></td>
-                    <td><%= link_to '', user, class:"fa fa-solid fa-arrow-right", title:"Show" %></td>
-                    <td><%= link_to '', edit_user_path(user), class:"fa fa-solid fa-edit", title:"Edit" %></td>
-                    <td><%= link_to '', user, method: :delete, data: { confirm: 'Are you sure?' }, class:"fa fa-solid fa-trash", title:"Delete" %></td>
-                  </tr>
+                <tr>
+                  <td><%= user.firstname %></td>
+                  <td><%= user.middlename %></td>
+                  <td><%= user.lastname %></td>
+                  <td><%= link_to '', user, class:"fa fa-solid fa-arrow-right", title:"Show" %></td>
+                  <td><%= link_to '', edit_user_path(user), class:"fa fa-solid fa-edit", title:"Edit" %></td>
+                  <td><%= link_to '', user, method: :delete, data: { confirm: 'Are you sure?' }, class:"fa fa-solid fa-trash", title:"Delete" %></td>
+                </tr>
                 <% end %>
               </tbody>
             </table>
@@ -111,4 +126,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

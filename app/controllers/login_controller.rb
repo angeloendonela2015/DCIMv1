@@ -1,14 +1,15 @@
 class LoginController < ApplicationController
   def new
     @user = User.new
+    @display = Display.find(1)
     year = Date.today
     @currentYear = year.strftime('%Y')
 
     sbmitTagSuccess = "You successfully logged Out"
-    sbmitTagDanger = "Your username or password does not match"
+    sbmitTagDanger = "Incorrect credentials!"
     successLogin = "You are successfully logged in."
     if sbmitTagDanger == notice
-      @notif = "text-light text-center rounded border border-5 border-danger"
+      @notif = "text-light text-center rounded border border-1 bg-danger bg-opacity-75"
       @reboot = "d-none"
       return
     elsif sbmitTagSuccess == notice
@@ -30,7 +31,7 @@ class LoginController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to login_path, notice: "Your username or password does not match" }
+        format.html { redirect_to login_path, notice: "Incorrect credentials!" }
       end
     end
   end

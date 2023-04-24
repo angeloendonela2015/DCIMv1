@@ -1,0 +1,72 @@
+<%= form_with(model: display, local: true, novalidate: true, enctype: 'multipart/form-data', html:{class:"needs-validation", novalidate: true}) do |form| %>
+  <% if display.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger text-center">
+      <h4 class=""><%= pluralize(display.errors.count, "error") %> prohibited this display from being saved:</h2>
+      <% display.errors.full_messages.each do |message| %>
+         <div class="fs-5" id="phalert"><%= message %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="card mt-5">
+    <div class="row g-3 p-2 bck-dashboard">
+      <div class="col-md-3 border-end">
+        <%= image_tag url_for(@display.logo), class:"img-fluid rounded mx-auto d-block py-2", style:"width:auto; height:10rem;", alt:"..." if @display.logo.attached? %>
+        <%= form.file_field :logo, class:"form-control", required: true %>
+        <small class="invalid-feedback fs-6 text-end">
+          Logo can't be blank.
+        </small>
+      </div>
+      <div class="col-md-6">
+        <div class="card-body p-5">
+          <h1 class="card-title text-light fw-bolder">
+            <%= form.text_field :title, class:"form-control fw-bolder fs-2", required: true %>
+            <small class="invalid-feedback fs-6 text-end">
+              Title can't be blank.
+            </small>
+          </h1>
+          <p class="card-text text-light fw-bolder">
+            <%= form.text_field :subtitle, class:"form-control fw-bolder", required: true %>
+            <small class="invalid-feedback fs-6 text-end">
+              Subtitle can't be blank.
+            </small>
+          </p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card-body text-center p-5">
+          <h1 class="card-title text-light text-center"><%=
+                dashTime = Time.now
+                @displayTime = dashTime.strftime("%I:%M %p")
+                 %></h1>
+          <p class="card-text"><small class="text-light text-center font-bolder"><%= @displayDate = dashTime.strftime("%A %B %d %Y") %></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6 p-2">
+      <%= form.label "Background Image" %>
+      <%= image_tag url_for(@display.bckimage), class:"img-fluid rounded mx-auto d-block", style:"width:auto; height:auto;", alt:"..." if @display.bckimage.attached? %>
+      <%= form.file_field :bckimage, class:"form-control mt-2", required: true %>
+      <small class="invalid-feedback fs-6 text-end">
+        background image can't be blank.
+      </small>
+    </div>
+
+    <div class="col-6 pt-5">
+      <div class="input-group">
+        <%= form.label :backcolor, class:"input-group-text" %>
+        <%= form.color_field :backcolor, id:"color-picker", class:"form-control form-control-color", required: true %>
+        <small class="invalid-feedback fs-6 text-end">
+          background color can't be blank.
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <%= form.submit class:"btn btn-primary me-md-2" %>
+  </div>
+<% end %>

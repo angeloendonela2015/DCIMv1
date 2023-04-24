@@ -54,94 +54,97 @@
       </li>
     </ul>
   </div>
-
-  <div class="col p-5 mt-5 mx-auto">
-    <div id="notice"><%= notice %></div>
-
-    <ul class="list-group">
-      <li href="#" class="list-group-item list-group-item-action active">
+  <div id="notice" value="<%= notice %>"></div>
+  <div class="col-9 p-5 mt-5 mx-auto">
+    <div class="list-group">
+      <div class="list-group-item list-group-item-action active">
+        <i class="fa fa-solid fa-plug f-2" style="color:#fff;"></i>
         MiniBoot Device
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div class="col-sm-4">
-          <p> <strong>Device name:</strong> </p>
-        </div>
-        <div class="col-sm-4">
-          <%= @snmpdevice.device_name %>
-        </div>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div class="col-sm-4">
-          <p> <strong>IP:</strong></p>
-        </div>
-        <div class="col-sm-4">
-          <a href="http://<%= @snmpdevice.device_ip %>" target="_blank" class="btn btn-primary btn-sm"><%= @snmpdevice.device_ip %></a>
-        </div>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div class="col-sm-4">
-          <p><strong>Community type:</strong></p>
-        </div>
-        <div class="col-sm-4">
-          <%= @snmpdevice.community_type %>
-        </div>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div class="col-sm-3">
-          <p>
-            <small>MiniBoot outlet: </small>
-            <strong><%= @outputAll %></strong>
-          </p>
-        </div>
-        <div class="col-sm-3">
-          <p>
-            <small>Status: </small>
-            <strong class="<%= @intRes %>"><%= @intRes %></strong>
-          </p>
-        </div>
-        <div class="col-sm-3">
-          <p>
-            <small>Output: </small>
-            <strong class="<%= @status1 %>"><%= @TotalStat %></strong>
-            -
-            <strong><%= @SubTotal %></strong>
-          </p>
-        </div>
+      </div>
+      <div class="list-group-item bg-dark bg-gradient text-light">
+        <div class="row p-4">
+          <div class="col-3 pt-5">
+            <div class="row">
+              <h6><strong><%= @snmpdevice.device_name %></strong></h6>
+            </div>
+            <div class="row mt-3">
+              <strong>
+                <small>IP Address: </small>
+                <a href="http://<%= @snmpdevice.device_ip %>" target="_blank" class="btn btn-primary btn-sm"><%= @snmpdevice.device_ip %></a>
+              </strong>
+            </div>
+            <div class="row mt-3">
+              <strong><small>Community type: </small><%= @snmpdevice.community_type %></strong>
+            </div>
+          </div>
+          <div class="col-9">
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table table-bordered border-primary">
+                  <tbody>
+                    <tr>
+                      <th>Outlet</th>
+                      <td class="align-items-center">
+                        <i class="fa fa- fa-plug"></i>
+                        <strong>Maximum of <%= @outputAll %> Slots</strong>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr>
+                      <th>Status</th>
+                      <td class="align-items-center">
+                        <i class="fa fa- fa-signal"></i>
+                        <strong class="<%= @intRes %>"><%= @intRes %></strong>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr>
+                      <th>Power</th>
+                      <td class="align-items-center">
+                        <i class="fa fa- fa-bolt"></i>
+                        <strong> active - <%= @TotalStat %></strong>
+                        <strong> inActive - <%= @SubTotal %></strong>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
-        <span class="badge badge-primary badge-pill">1</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center <%= @inActive %>">
-        <div class="col-sm-3">
-          <p><small><%= @oidName1 %>: </small><strong class="<%= @status1 %>"><%= @status1 %></strong></p>
+              <div class="table-responsive">
+                <table class="table table-bordered border-primary">
+                  <tbody>
+                    <tr class="text-center">
+                      <th rowspan="2"><small"><i class="fa fa- fa-plug"></i> Outlets</small></th>
+                      <td class="<%= @inActive %><%= @status1 %>"><small><%= @oidName1 %></small></td>
+                      <td class="<%= @inActive %><%= @status2 %>"><small><%= @oidName2 %></small></td>
+                      <td class="<%= @inActive %><%= @status3 %>"><small><%= @oidName3 %></small></td>
+                      <td class="<%= @inActive %><%= @status4 %>"><small><%= @oidName4 %></small></td>
+                    </tr>
+                    <tr class="text-center">
+                      <td class="<%= @inActive %><%= @divHide %><%= @status5 %>"><%= @oidName5 %></td>
+                      <td class="<%= @inActive %><%= @divHide %><%= @status6 %>"><%= @oidName6 %></td>
+                      <td class="<%= @inActive %><%= @divHide %><%= @status7 %>"><%= @oidName7 %></td>
+                      <td class="<%= @inActive %><%= @divHide %><%= @status8 %>"><%= @oidName8 %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-5">
+            <%= link_to 'Edit', edit_snmpdevice_path(@snmpdevice), class:"btn btn-primary btn-sm" %>
+            <%= link_to 'Back', snmpdevices_path, class:"btn btn-secondary btn-sm" %>
+          </div>
         </div>
-        <div class="col-sm-3">
-          <p><small><%= @oidName2 %>: </small><strong class="<%= @status2 %>"><%= @status2 %></strong></p>
-        </div>
-        <div class="col-sm-3">
-          <p><small><%= @oidName3 %>: </small><strong class="<%= @status3 %>"><%= @status3 %></strong></p>
-        </div>
-        <div class="col-sm-3">
-          <p><small><%= @oidName4 %>: </small><strong class="<%= @status4 %>"><%= @status4 %></strong></p>
-        </div>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center <%= @divHide %> <%= @inActive %>">
-        <div class="col-sm-3">
-          <p><small><%= @oidName5 %>: </small><strong class="<%= @status5 %>"><%= @status5 %></strong></p>
-        </div>
-        <div class="col-sm-3">
-          <p><small><%= @oidName6 %>: </small><strong class="<%= @status6 %>"><%= @status6 %></strong></p>
-        </div>
-        <div class="col-sm-3">
-          <p><small><%= @oidName7 %>: </small><strong class="<%= @status7 %>"><%= @status7 %></strong></p>
-        </div>
-        <div class="col-sm-3">
-          <p><small><%= @oidName8 %>: </small><strong class="<%= @status8 %>"><%= @status8 %></strong></p>
-        </div>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <%= link_to 'Edit', edit_snmpdevice_path(@snmpdevice), class:"btn btn-primary btn-sm" %>
-        <%= link_to 'Back', snmpdevices_path, class:"btn btn-secondary btn-sm" %>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </div>
+<script type="text/javascript">
+  var snmpno = document.getElementById('notice').getAttribute('value');
+  if (snmpno === "Snmpdevice was successfully created."){
+    sweetAlert(snmpno);
+  }
+</script>

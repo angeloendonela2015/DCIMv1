@@ -28,8 +28,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 
 # Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
+gem 'mini_magick', '~> 4.8'
 
+gem 'active_storage_validations'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -62,6 +63,8 @@ group :development do
   gem 'sys-cpu', '~> 1.0', '>= 1.0.6'
   gem 'benchmark', '~> 0.2.1'
   gem 'benchmark-ips', '~> 2.12'
+  gem 'image_processing', '~> 1.2'
+  gem 'sweetalert-rails', '~> 1.1', '>= 1.1.3'
 end
 
 

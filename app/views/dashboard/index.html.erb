@@ -1,3 +1,23 @@
+<style media="screen">
+  .demo-wrap {
+    position: relative;
+  }
+  .demo-wrap:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<%= url_for(@display.bckimage) %>);
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: 100% 100%;
+    min-height:100%;
+  }
+</style>
+<section class="demo-wrap">
 <nav class="navbar lst fixed-top">
   <div class="container-fluid">
     <%= link_to root_path,  class:"navbar-brand mb-0 h1 lsttxt neon" do %>
@@ -59,386 +79,393 @@
     </li>
   </ul>
 </div>
+<br />
 
-<div id="element">
-  <div class="container-fluid bck-dashboard" id="requests">
-    <br />
-    <div class="card mt-5">
-      <div class="row g-3 p-2">
-        <div class="col-md-3 border-end">
-          <img src="https://2.bp.blogspot.com/-Xp6D9yzy0nU/UVzwdMGSdxI/AAAAAAAAAD0/CUV6Fm-JISI/s1600/BU+Logo.png" class="img-fluid rounded mx-auto d-block" style="width:auto; height:10rem;" alt="...">
-        </div>
-        <div class="col-md-6">
-          <div class="card-body p-5">
-            <h1 class="card-title text-light fw-bolder">BICOL UNIVERSITY</h1>
-            <p class="card-text text-light fw-bolder">Legazpi City Campus</p>
+  <div id="element" class="container-fluid">
+    <div id="requests">
+      <div class="card mt-5">
+        <div class="row g-3 p-2">
+          <div class="col-md-3 border-end">
+            <%= image_tag url_for(@display.logo), class:"img-fluid rounded mx-auto d-block mt-2", style:"width:auto; height:10rem;" %>
           </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card-body text-center p-5">
-            <h1 class="card-title text-light text-center">12:00 pm</h1>
-            <p class="card-text"><small class="text-light text-center">March 03 2023</small></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-4 mt-3">
-        <div class="list-group">
-          <div class="list-group-item list-group-item-action active">
-            <i class="fa fa-solid fa-server f-2" style="color:#fff;""></i>
-            Network Operation Center
-          </div>
-          <% @nocs.each do |noc| %>
-            <div class="list-group-item bg-dark bg-gradient text-light d-none">
-              <div class="row text-center">
-                <div class="col-6">
-                  <%= noc.sensorename %>
-                </div>
-                <div class="col-6">
-                  <%= noc.ipname %>
-                </div>
-              </div>
-              <div class="row text-center">
-                <div class="col-6">
-                  <%= noc.oid %>
-                </div>
-                <div class="col-6">
-                  <%= noc.ipaddress%>
-                </div>
-              </div>
+          <div class="col-md-6">
+            <div class="card-body p-5">
+              <h1 class="card-title text-light fw-bolder"><%= @display.title %></h1>
+              <p class="card-text text-light fw-bolder"><%= @display.subtitle %></p>
             </div>
-          <% end %>
-          <div class="list-group-item bg-dark bg-gradient text-light text-center">
-            <h4>This is currently not available.</h4>
+          </div>
+          <div class="col-md-3">
+            <div class="card-body text-center p-5">
+              <h1 class="card-title text-light text-center"><%=
+                    dashTime = Time.now
+                    @displayTime = dashTime.strftime("%I:%M %p")
+                     %></h1>
+              <p class="card-text"><small class="text-light text-center font-bolder"><%= @displayDate = dashTime.strftime("%A %B %d %Y") %></small></p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="col-sm-5 mt-3">
-        <div class="list-group">
-          <li href="#" class="list-group-item list-group-item-action active">
-            <i class="fa fa-solid fa-plug f-2" style="color:#fff;"></i>
-            MiniBoot Devices
-          </li>
-          <li class="list-group-item bg-dark bg-gradient text-lightn">
-            <div class="table-responsive rounded">
-              <table class="table table-dark table-hover rounded">
+      <div class="row">
+        <div class="col-sm-4 mt-3">
+          <div class="list-group">
+            <div class="list-group-item list-group-item-action active">
+              <i class="fa fa-solid fa-server f-2" style="color:#fff;""></i>
+              Network Operation Center
+            </div>
+            <% @nocs.each do |noc| %>
+              <div class="list-group-item bg-dark bg-gradient text-light d-none">
+                <div class="row text-center">
+                  <div class="col-6">
+                    <%= noc.sensorename %>
+                  </div>
+                  <div class="col-6">
+                    <%= noc.ipname %>
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <div class="col-6">
+                    <%= noc.oid %>
+                  </div>
+                  <div class="col-6">
+                    <%= noc.ipaddress%>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <div class="list-group-item bg-dark bg-gradient text-light text-center">
+              <h4>This is currently not available.</h4>
+            </div>
+          </div>
+        </div>
 
-                <tbody>
+        <div class="col-sm-5 mt-3">
+          <div class="list-group">
+            <li href="#" class="list-group-item list-group-item-action active">
+              <i class="fa fa-solid fa-plug f-2" style="color:#fff;"></i>
+              MiniBoot Devices
+            </li>
+            <li class="list-group-item bg-dark bg-gradient text-lightn">
+              <div class="table-responsive rounded">
+                <table class="table table-dark table-hover rounded">
 
-                  <% @snmpdevices.each do |snmpdevice| %>
+                  <tbody>
+
+                    <% @snmpdevices.each do |snmpdevice| %>
+                    <div class="d-none">
+                      <%=
+                        ssm_ip  = snmpdevice.device_ip
+                        p1 = Net::Ping::External.new(ssm_ip,timeout=0.9)
+                        status_ip = p1.ping?
+                        if status_ip == true
+                          @status = 'Online'
+
+                          host = snmpdevice.device_ip.freeze
+                          typeValue = { 'OCTET STRING' => :to_f, 'INTEGER' => :to_i }.freeze
+
+                          registers1 = [ snmpdevice.oid_status1]
+                          registers2 = [ snmpdevice.oid_status2]
+                          registers3 = [ snmpdevice.oid_status3]
+                          registers4 = [ snmpdevice.oid_status4]
+                          registers5 = [ snmpdevice.oid_status5]
+                          registers6 = [ snmpdevice.oid_status6]
+                          registers7 = [ snmpdevice.oid_status7]
+                          registers8 = [ snmpdevice.oid_status8]
+
+                          params_array1 = {}
+                          params_array2 = {}
+                          params_array3 = {}
+                          params_array4 = {}
+                          params_array5 = {}
+                          params_array6 = {}
+                          params_array7 = {}
+                          params_array8 = {}
+
+                        if snmpdevice.outlet_type == "MiniBoot_Outlet_4"
+                          SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager1|
+                            manager1.load_module('UPS-MIB')
+                            response1 = manager1.get(registers1)
+                            response1.each_varbind do |vb|
+                              if method = typeValue[vb.value.asn1_type]
+                                params_array1 = vb.value.send(method)
+                              else
+                                puts "Type '#{vb.value.asn1_type}' not recognized!"
+                              end
+                            end
+                          end
+
+                          SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager2|
+                            manager2.load_module('UPS-MIB')
+                            response2 = manager2.get(registers2)
+                            response2.each_varbind do |vb|
+                              if method2 = typeValue[vb.value.asn1_type]
+                                params_array2 = vb.value.send(method2)
+                              else
+                                puts "Type '#{vb.value.asn1_type}' not recognized!"
+                              end
+                            end
+                          end
+
+                          SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager3|
+                            manager3.load_module('UPS-MIB')
+                            response3 = manager3.get(registers3)
+                            response3.each_varbind do |vb|
+                              if method3 = typeValue[vb.value.asn1_type]
+                                params_array3 = vb.value.send(method3)
+                              else
+                                puts "Type '#{vb.value.asn1_type}' not recognized!"
+                              end
+                            end
+                          end
+
+                          SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager4|
+                            manager4.load_module('UPS-MIB')
+                            response4 = manager4.get(registers4)
+                            response4.each_varbind do |vb|
+                              if method4 = typeValue[vb.value.asn1_type]
+                                params_array4 = vb.value.send(method4)
+                              else
+                                puts "Type '#{vb.value.asn1_type}' not recognized!"
+                              end
+                            end
+                          end
+                          status1 = pp params_array1
+                          status2 = pp params_array2
+                          status3 = pp params_array3
+                          status4 = pp params_array4
+                          outletAll = 4
+                          total = status1 + status2 + status3 + status4
+                          offtotal =  4 - total
+
+                        elsif snmpdevice.outlet_type == "MiniBoot_Outlet_8"
+
+                          SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager1|
+                            manager1.load_module('UPS-MIB')
+                            response1 = manager1.get(registers1)
+                            response1.each_varbind do |vb|
+                              if method = typeValue[vb.value.asn1_type]
+                                params_array1 = vb.value.send(method)
+                              else
+                                puts "Type '#{vb.value.asn1_type}' not recognized!"
+                              end
+                            end
+                          end
+
+                          SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager2|
+                            manager2.load_module('UPS-MIB')
+                            response2 = manager2.get(registers2)
+                            response2.each_varbind do |vb|
+                              if method2 = typeValue[vb.value.asn1_type]
+                                params_array2 = vb.value.send(method2)
+                              else
+                                puts "Type '#{vb.value.asn1_type}' not recognized!"
+                              end
+                            end
+                          end
+
+                          SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager3|
+                            manager3.load_module('UPS-MIB')
+                            response3 = manager3.get(registers3)
+                            response3.each_varbind do |vb|
+                              if method3 = typeValue[vb.value.asn1_type]
+                                params_array3 = vb.value.send(method3)
+                              else
+                                puts "Type '#{vb.value.asn1_type}' not recognized!"
+                              end
+                            end
+                          end
+
+                          SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager4|
+                            manager4.load_module('UPS-MIB')
+                            response4 = manager4.get(registers4)
+                            response4.each_varbind do |vb|
+                              if method4 = typeValue[vb.value.asn1_type]
+                                params_array4 = vb.value.send(method4)
+                              else
+                                puts "Type '#{vb.value.asn1_type}' not recognized!"
+                              end
+                            end
+                          end
+
+                          SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager5|
+                            manager5.load_module('UPS-MIB')
+                            response5 = manager5.get(registers5)
+                            response5.each_varbind do |vb|
+                              if method5 = typeValue[vb.value.asn1_type]
+                                params_array5 = vb.value.send(method5)
+                              else
+                                puts "Type '#{vb.value.asn1_type}' not recognized!"
+                              end
+                            end
+                          end
+
+                          SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager6|
+                            manager6.load_module('UPS-MIB')
+                            response6 = manager6.get(registers6)
+                            response6.each_varbind do |vb|
+                              if method6 = typeValue[vb.value.asn1_type]
+                                params_array6 = vb.value.send(method6)
+                              else
+                                puts "Type '#{vb.value.asn1_type}' not recognized!"
+                              end
+                            end
+                          end
+
+                          SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager7|
+                            manager7.load_module('UPS-MIB')
+                            response7 = manager7.get(registers7)
+                            response7.each_varbind do |vb|
+                              if method7 = typeValue[vb.value.asn1_type]
+                                params_array7 = vb.value.send(method7)
+                              else
+                                puts "Type '#{vb.value.asn1_type}' not recognized!"
+                              end
+                            end
+                          end
+
+                          SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager8|
+                            manager8.load_module('UPS-MIB')
+                            response8 = manager8.get(registers8)
+                            response8.each_varbind do |vb|
+                              if method8 = typeValue[vb.value.asn1_type]
+                                params_array8 = vb.value.send(method8)
+                              else
+                                puts "Type '#{vb.value.asn1_type}' not recognized!"
+                              end
+                            end
+                          end
+                          status1 = pp params_array1
+                          status2 = pp params_array2
+                          status3 = pp params_array3
+                          status4 = pp params_array4
+                          status5 = pp params_array5
+                          status6 = pp params_array6
+                          status7 = pp params_array7
+                          status8 = pp params_array8
+                          outletAll = 8
+                          total = status1 + status2 + status3 + status4 + status5 + status6 + status7 + status8
+                          offtotal =  8 - total
+
+                        end
+
+                        else
+                          @status = 'Offline'
+                        end
+                      %>
+                    </div>
+                      <tr>
+                        <td><h6 class="text-white"><%= snmpdevice.device_name %></h6></td>
+                        <td style="text-align:center;"><a href="http://<%= snmpdevice.device_ip %>" target="_blank"><%= snmpdevice.device_ip %></a></td>
+                        <td class="<%= @status %> text-center">
+                            <%= @status %>
+                        </td>
+                        <td class="text-warning font-weight-bold"><%= outletAll %></td>
+                        <td class="text-success font-weight-bold"><h6><i class="fa fa- fa-plug" aria-hidden="true"></i> <%= total  %></h6></td>
+                        <td class="text-danger font-weight-bold"><h6><i class="fa fa-thin fa-plug" aria-hidden="true"></i> <%= offtotal %></h6></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </li>
+          </div>
+        </div>
+        <div class="col-sm-3 mt-3">
+          <div class="list-group">
+            <div class="list-group-item list-group-item-action active">
+              <i class="fa fa-solid fa-sitemap f-2" style="color:#fff;"></i>
+              Switches
+            </div>
+            <div class="list-group-item bg-dark bg-gradient text-light">
+              <div class="anyClass" id="anyClass">
+                <% @ssms.each do |ssm| %>
                   <div class="d-none">
                     <%=
-                      ssm_ip  = snmpdevice.device_ip
-                      p1 = Net::Ping::External.new(ssm_ip,timeout=0.9)
-                      status_ip = p1.ping?
-                      if status_ip == true
-                        @status = 'Online'
-
-                        host = snmpdevice.device_ip.freeze
-                        typeValue = { 'OCTET STRING' => :to_f, 'INTEGER' => :to_i }.freeze
-
-                        registers1 = [ snmpdevice.oid_status1]
-                        registers2 = [ snmpdevice.oid_status2]
-                        registers3 = [ snmpdevice.oid_status3]
-                        registers4 = [ snmpdevice.oid_status4]
-                        registers5 = [ snmpdevice.oid_status5]
-                        registers6 = [ snmpdevice.oid_status6]
-                        registers7 = [ snmpdevice.oid_status7]
-                        registers8 = [ snmpdevice.oid_status8]
-
-                        params_array1 = {}
-                        params_array2 = {}
-                        params_array3 = {}
-                        params_array4 = {}
-                        params_array5 = {}
-                        params_array6 = {}
-                        params_array7 = {}
-                        params_array8 = {}
-
-                      if snmpdevice.outlet_type == "MiniBoot_Outlet_4"
-                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager1|
-                          manager1.load_module('UPS-MIB')
-                          response1 = manager1.get(registers1)
-                          response1.each_varbind do |vb|
-                            if method = typeValue[vb.value.asn1_type]
-                              params_array1 = vb.value.send(method)
-                            else
-                              puts "Type '#{vb.value.asn1_type}' not recognized!"
-                            end
-                          end
-                        end
-
-                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager2|
-                          manager2.load_module('UPS-MIB')
-                          response2 = manager2.get(registers2)
-                          response2.each_varbind do |vb|
-                            if method2 = typeValue[vb.value.asn1_type]
-                              params_array2 = vb.value.send(method2)
-                            else
-                              puts "Type '#{vb.value.asn1_type}' not recognized!"
-                            end
-                          end
-                        end
-
-                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager3|
-                          manager3.load_module('UPS-MIB')
-                          response3 = manager3.get(registers3)
-                          response3.each_varbind do |vb|
-                            if method3 = typeValue[vb.value.asn1_type]
-                              params_array3 = vb.value.send(method3)
-                            else
-                              puts "Type '#{vb.value.asn1_type}' not recognized!"
-                            end
-                          end
-                        end
-
-                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager4|
-                          manager4.load_module('UPS-MIB')
-                          response4 = manager4.get(registers4)
-                          response4.each_varbind do |vb|
-                            if method4 = typeValue[vb.value.asn1_type]
-                              params_array4 = vb.value.send(method4)
-                            else
-                              puts "Type '#{vb.value.asn1_type}' not recognized!"
-                            end
-                          end
-                        end
-                        status1 = pp params_array1
-                        status2 = pp params_array2
-                        status3 = pp params_array3
-                        status4 = pp params_array4
-                        outletAll = 4
-                        total = status1 + status2 + status3 + status4
-                        offtotal =  4 - total
-
-                      elsif snmpdevice.outlet_type == "MiniBoot_Outlet_8"
-
-                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager1|
-                          manager1.load_module('UPS-MIB')
-                          response1 = manager1.get(registers1)
-                          response1.each_varbind do |vb|
-                            if method = typeValue[vb.value.asn1_type]
-                              params_array1 = vb.value.send(method)
-                            else
-                              puts "Type '#{vb.value.asn1_type}' not recognized!"
-                            end
-                          end
-                        end
-
-                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager2|
-                          manager2.load_module('UPS-MIB')
-                          response2 = manager2.get(registers2)
-                          response2.each_varbind do |vb|
-                            if method2 = typeValue[vb.value.asn1_type]
-                              params_array2 = vb.value.send(method2)
-                            else
-                              puts "Type '#{vb.value.asn1_type}' not recognized!"
-                            end
-                          end
-                        end
-
-                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager3|
-                          manager3.load_module('UPS-MIB')
-                          response3 = manager3.get(registers3)
-                          response3.each_varbind do |vb|
-                            if method3 = typeValue[vb.value.asn1_type]
-                              params_array3 = vb.value.send(method3)
-                            else
-                              puts "Type '#{vb.value.asn1_type}' not recognized!"
-                            end
-                          end
-                        end
-
-                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager4|
-                          manager4.load_module('UPS-MIB')
-                          response4 = manager4.get(registers4)
-                          response4.each_varbind do |vb|
-                            if method4 = typeValue[vb.value.asn1_type]
-                              params_array4 = vb.value.send(method4)
-                            else
-                              puts "Type '#{vb.value.asn1_type}' not recognized!"
-                            end
-                          end
-                        end
-
-                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager5|
-                          manager5.load_module('UPS-MIB')
-                          response5 = manager5.get(registers5)
-                          response5.each_varbind do |vb|
-                            if method5 = typeValue[vb.value.asn1_type]
-                              params_array5 = vb.value.send(method5)
-                            else
-                              puts "Type '#{vb.value.asn1_type}' not recognized!"
-                            end
-                          end
-                        end
-
-                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager6|
-                          manager6.load_module('UPS-MIB')
-                          response6 = manager6.get(registers6)
-                          response6.each_varbind do |vb|
-                            if method6 = typeValue[vb.value.asn1_type]
-                              params_array6 = vb.value.send(method6)
-                            else
-                              puts "Type '#{vb.value.asn1_type}' not recognized!"
-                            end
-                          end
-                        end
-
-                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager7|
-                          manager7.load_module('UPS-MIB')
-                          response7 = manager7.get(registers7)
-                          response7.each_varbind do |vb|
-                            if method7 = typeValue[vb.value.asn1_type]
-                              params_array7 = vb.value.send(method7)
-                            else
-                              puts "Type '#{vb.value.asn1_type}' not recognized!"
-                            end
-                          end
-                        end
-
-                        SNMP::Manager.open(host: host, :community => snmpdevice.community_type) do |manager8|
-                          manager8.load_module('UPS-MIB')
-                          response8 = manager8.get(registers8)
-                          response8.each_varbind do |vb|
-                            if method8 = typeValue[vb.value.asn1_type]
-                              params_array8 = vb.value.send(method8)
-                            else
-                              puts "Type '#{vb.value.asn1_type}' not recognized!"
-                            end
-                          end
-                        end
-                        status1 = pp params_array1
-                        status2 = pp params_array2
-                        status3 = pp params_array3
-                        status4 = pp params_array4
-                        status5 = pp params_array5
-                        status6 = pp params_array6
-                        status7 = pp params_array7
-                        status8 = pp params_array8
-                        outletAll = 8
-                        total = status1 + status2 + status3 + status4 + status5 + status6 + status7 + status8
-                        offtotal =  8 - total
-
+                      host = ssm.ipaddress
+                      rtt = Benchmark.realtime do
+                        pinger = Net::Ping::External.new(host)
+                        pinger.ping
                       end
 
+                      if rtt
+                        if (rtt).round(4) < 3.0000
+                          rttResult = (rtt).round(4)
+                          msString = "ms"
+                          rttPass = "d-none"
+                        else
+                          rttResult = "Offline"
+                        end
+
                       else
-                        @status = 'Offline'
+                        rttResult = "failed"
                       end
                     %>
                   </div>
-                    <tr>
-                      <td><h6 class="text-white"><%= snmpdevice.device_name %></h6></td>
-                      <td style="text-align:center;"><a href="http://<%= snmpdevice.device_ip %>" target="_blank"><%= snmpdevice.device_ip %></a></td>
-                      <td class="<%= @status %> text-center">
-                          <%= @status %>
-                      </td>
-                      <td class="text-warning font-weight-bold"><%= outletAll %></td>
-                      <td class="text-success font-weight-bold"><h6><i class="fa fa- fa-plug" aria-hidden="true"></i> <%= total  %></h6></td>
-                      <td class="text-danger font-weight-bold"><h6><i class="fa fa-thin fa-plug" aria-hidden="true"></i> <%= offtotal %></h6></td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-          </li>
-        </div>
-      </div>
-      <div class="col-sm-3 mt-3">
-        <div class="list-group">
-          <div class="list-group-item list-group-item-action active">
-            <i class="fa fa-solid fa-sitemap f-2" style="color:#fff;"></i>
-            Switches
-          </div>
-          <div class="list-group-item bg-dark bg-gradient text-light">
-            <div class="anyClass" id="anyClass">
-              <% @ssms.each do |ssm| %>
-                <div class="d-none">
-                  <%=
-                    host = ssm.ipaddress
-                    rtt = Benchmark.realtime do
-                      pinger = Net::Ping::External.new(host)
-                      pinger.ping
-                    end
 
-                    if rtt
-                      if (rtt).round(4) < 3.0000
-                        rttResult = (rtt).round(4)
-                        msString = "ms"
-                        rttPass = "d-none"
-                      else
-                        rttResult = "Offline"
+                  <li class="list-group-item bg-dark bg-gradient <%= rttPass %> text-light <%= rttResult %>" id="myList">
+                    <div class="row">
+                      <div class="col text-truncate">
+                        <small title="IP: <%= ssm.ipaddress %>"><%= ssm.unitname %></small>
+                      </div>
+                      <div class="col text-end">
+                        <small class="text-center <%= rttResult %>">
+                          <%= rttResult %>....
+                         </small>
+                      </div>
+                    </div>
+                  </li>
+
+                <% end %>
+
+                <% @ssms.each do |ssm| %>
+                  <div class="d-none">
+                    <%=
+                      host = ssm.ipaddress
+                      rtt = Benchmark.realtime do
+                        pinger = Net::Ping::External.new(host)
+                        pinger.ping
                       end
 
-                    else
-                      rttResult = "failed"
-                    end
-                  %>
-                </div>
+                      if rtt
+                        if (rtt).round(4) < 3.0000
+                          rttResult = (rtt).round(4)
+                          msString = "ms"
+                          rttPass = "text-success"
+                        else
+                          rttResult = "d-none"
+                        end
 
-                <li class="list-group-item bg-dark bg-gradient <%= rttPass %> text-light <%= rttResult %>" id="myList">
-                  <div class="row">
-                    <div class="col text-truncate">
-                      <small title="IP: <%= ssm.ipaddress %>"><%= ssm.unitname %></small>
-                    </div>
-                    <div class="col text-end">
-                      <small class="text-center <%= rttResult %>">
-                        <%= rttResult %>....
-                       </small>
-                    </div>
-                  </div>
-                </li>
-
-              <% end %>
-
-              <% @ssms.each do |ssm| %>
-                <div class="d-none">
-                  <%=
-                    host = ssm.ipaddress
-                    rtt = Benchmark.realtime do
-                      pinger = Net::Ping::External.new(host)
-                      pinger.ping
-                    end
-
-                    if rtt
-                      if (rtt).round(4) < 3.0000
-                        rttResult = (rtt).round(4)
-                        msString = "ms"
-                        rttPass = "text-success"
                       else
-                        rttResult = "d-none"
+                        rttResult = "failed"
                       end
-
-                    else
-                      rttResult = "failed"
-                    end
-                  %>
-                </div>
-
-                <li class="list-group-item bg-dark bg-gradient text-light <%= rttResult %>" id="myList">
-                  <div class="row">
-                    <div class="col-8 text-truncate">
-                      <small title="IP: <%= ssm.ipaddress %>"><%= ssm.unitname %></small>
-                    </div>
-                    <div class="col-4 text-end">
-                      <small class="text-center <%= rttPass %>">
-                        <%= rttResult %> <%= msString %>
-                       </small>
-                    </div>
+                    %>
                   </div>
-                </li>
 
-              <% end %>
+                  <li class="list-group-item bg-dark bg-gradient text-light <%= rttResult %>" id="myList">
+                    <div class="row">
+                      <div class="col-8 text-truncate">
+                        <small title="IP: <%= ssm.ipaddress %>"><%= ssm.unitname %></small>
+                      </div>
+                      <div class="col-4 text-end">
+                        <small class="text-center <%= rttPass %>">
+                          <%= rttResult %> <%= msString %>
+                         </small>
+                      </div>
+                    </div>
+                  </li>
+
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
+
   </div>
-</div>
+</section>
+
 
 <script type="text/javascript">
   function GoInFullscreen(element) {

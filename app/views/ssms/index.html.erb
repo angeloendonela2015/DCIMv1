@@ -55,10 +55,9 @@
     </ul>
   </div>
 
-
+  <div id="notice" value="<%= notice %>"></div>
 
   <div class="row-6 mt-5">
-    <p id="notice"><%= notice %><%= @include %></p>
     <div class="col-sm-12 mt-2"">
       <div class="card">
         <div class="card-body">
@@ -146,3 +145,9 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  var ssmsno = document.getElementById("notice").getAttribute("value");
+  if (ssmsno === "Ssm was successfully created."){
+    sweetAlert(ssmsno);
+  }
+</script>

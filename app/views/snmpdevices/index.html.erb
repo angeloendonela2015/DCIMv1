@@ -55,9 +55,8 @@
       </li>
     </ul>
   </div>
-
+  <div id="notice" value="<%= notice %>"></div>
   <div class="row mt-5">
-    <p id="notice"><%= notice %><%= @include %></p>
     <div class="col-sm-12 mt-2"">
       <div class="card">
         <div class="card-body">
@@ -332,3 +331,9 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  var snmpno = document.getElementById('notice').getAttribute('value');
+  if (snmpno === "Snmpdevice was successfully updated."){
+    sweetAlert(snmpno);
+  }
+</script>

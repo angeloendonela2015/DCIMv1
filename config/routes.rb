@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :displays
   resources :nocs
   resources :snmpdevices
   resources :users

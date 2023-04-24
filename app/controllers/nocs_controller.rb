@@ -7,6 +7,7 @@ class NocsController < ApplicationController
   def index
     if logged_in?
       @nocs = Noc.all
+      @ssms = Ssm.all
       @accrossLink = 'http://192.168.124.141/dominus/options/'
 
     else
@@ -22,6 +23,7 @@ class NocsController < ApplicationController
   def new
     if logged_in?
       @noc = Noc.new
+      @ssms = Ssm.all
     else
       redirect_to login_path
     end
@@ -41,7 +43,7 @@ class NocsController < ApplicationController
   def create
     if logged_in?
       @noc = Noc.new(noc_params)
-
+      @ssms = Ssm.all
       respond_to do |format|
         if @noc.save
           format.html { redirect_to noc_url(@noc), notice: "Noc was successfully created." }

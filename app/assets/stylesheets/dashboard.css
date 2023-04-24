@@ -37,12 +37,3 @@
   max-height:700px;
   overflow-y: auto;
 }
-.bck-dashboard{
-  background-image: linear-gradient(90deg, rgba(2,0,36,0.7105217086834734) 0%, rgba(48,48,52,0.8281687675070029) 35%, rgba(0,14,17,0.5676645658263305) 100%),
-  url(https://i.ytimg.com/vi/X8sx8ray-HQ/maxresdefault.jpg);
-  background-attachment: inherit;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-blend-mode: hard-light;
-}

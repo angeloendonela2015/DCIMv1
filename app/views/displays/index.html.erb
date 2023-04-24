@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Displays</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Subtitle</th>
+      <th>Logo</th>
+      <th>Bckimage</th>
+      <th>Backcolor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @displays.each do |display| %>
+      <tr>
+        <td><%= display.title %></td>
+        <td><%= display.subtitle %></td>
+        <td><%= display.logo %></td>
+        <td><%= display.bckimage %></td>
+        <td><%= display.backcolor %></td>
+        <td><%= link_to 'Show', display %></td>
+        <td><%= link_to 'Edit', edit_display_path(display) %></td>
+        <td><%= link_to 'Destroy', display, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Display', new_display_path %>

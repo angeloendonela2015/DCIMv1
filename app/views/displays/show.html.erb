@@ -51,6 +51,12 @@
         <small style="margin-left:20px;" class="fs-6"> Across </small>
       </a>
     </li>
+    <li>
+      <a href="#" id="btnFullscreen">
+        <i class="fa fa-arrows-alt fa-solid pr-5"></i>
+        <small style="margin-left:20px;" class="fs-6"> Fullscreen </small>
+      </a>
+    </li>
   </ul>
 </div>
 <p id="notice" value="<%= notice %>"></p>
@@ -59,38 +65,27 @@
     <div class="list-group">
       <div class="list-group-item list-group-item-action active">
         <div class="row">
-          <div class="col-6">
-            <h1>
-              <i class="fa fa-solid fa-server f-2" style="color:#fff;""></i>
-              Network Operation Center
-            </h1>
+          <div class="col">
+            <h5>
+              <i class="fa fa-solid fa-edit f-2" style="color:#fff;""></i>
+              Editing Displays
+            </h5>
           </div>
         </div>
       </div>
-      <% @nocs.each do |noc| %>
-        <div class="list-group-item bg-dark bg-gradient text-light">
-          <div class="row">
-            <div class="col-5 border-end">
-              <div><%= noc.sensorename %></div>
-              <div>Sensore:<%= noc.oid %></div>
-            </div>
-            <div class="col-5">
-              <div><%= noc.ipname %></div>
-              <div><%= noc.ipaddress %></div>
-            </div>
-            <div class="col-2">
-              <div class="btn-group btn-group-sm pt-2">
-                <%= link_to 'Show', noc, class:"btn btn-outline-secondary text-light" %>
-                <%= link_to 'Edit', edit_noc_path(noc) , class:"btn btn-outline-secondary text-light" %>
-                <%= link_to 'Delete', noc, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
+      <div class="list-group-item bg-dark bg-gradient text-light">
+        <%= render 'form', display: @display %>
+      </div>
     </div>
   </div>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
-    <%= link_to 'Add new network operation center', new_noc_path, class:"btn btn-outline-secondary text-light" %>
+    <%= link_to 'Show', @display, class:"btn btn-outline-secondary text-light" %>
+    <%= link_to 'Back', displays_path, class:"btn btn-outline-secondary text-light" %>
   </div>
 </div>
+<script type="text/javascript">
+  var cookieValue = document.getElementById('notice').getAttribute('value');
+  if (cookieValue === "Display was successfully updated."){
+    sweetAlert(cookieValue);
+  }
+</script>
