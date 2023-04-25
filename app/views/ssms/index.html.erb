@@ -19,7 +19,7 @@
   </div>
 </nav>
 
-<div class="container" id="requests">
+<div class="container-fluid" id="requests">
   <div class="sidebar" id="sidebar">
     <ul>
       <li>
@@ -57,25 +57,23 @@
 
   <div id="notice" value="<%= notice %>"></div>
 
-  <div class="row-6 mt-5">
-    <div class="col-sm-12 mt-2"">
+  <div class="row mt-5">
+    <div class="col-sm-9 mt-2">
       <div class="card">
         <div class="card-body">
-          <div class="container">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title text-light"><i class="fa fa-solid fa-sitemap"> SERVER STATUS MONITORING</i></h5>
-              </div>
-              <div class="col">
-                <%= form_tag ssms_path, :method => "GET" do %>
-                  <div class="input-group input-group-sm mb-3">
-                    <%= text_field_tag :ssm_search, params[:ssm_search], class:"form-control", placeholder:"Search Server Name" %>
-                    <%= submit_tag "Search", class:"btn btn-outline-secondary" do %>
-                      <i class="fa fa-solid fa-search"></i>
-                    <% end %>
-                  </div>
-                <% end %>
-              </div>
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-light"><i class="fa fa-solid fa-sitemap"> SERVER STATUS MONITORING</i></h5>
+            </div>
+            <div class="col">
+              <%= form_tag ssms_path, :method => "GET" do %>
+                <div class="input-group input-group-sm mb-3">
+                  <%= text_field_tag :ssm_search, params[:ssm_search], class:"form-control", placeholder:"Search Server Name" %>
+                  <%= submit_tag "Search", class:"btn btn-outline-secondary" do %>
+                    <i class="fa fa-solid fa-search"></i>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
           </div>
 
@@ -91,7 +89,6 @@
                   </tr>
                 </thead>
                 <% @ssms.each do |ssm|%>
-
                 <div class="d-none">
                   <%=
                     host = ssm.ipaddress
@@ -108,7 +105,6 @@
                         rttResult = (rtt).round(4)
                         statusResult = "Offline"
                       end
-
                     else
                       rttResult = "failed"
                     end
@@ -143,6 +139,33 @@
         </div>
       </div>
     </div>
+    <div class="col-sm-3 mt-2">
+      <% @ssms.each do |alert|%>
+      <div class="d-none">
+        <%=
+          host = alert.ipaddress
+          rtt = Benchmark.realtime do
+            pinger = Net::Ping::External.new(host)
+            pinger.ping
+          end
+          if rtt
+            if (rtt).round(4) < 3.0000
+              alertBlock = "d-none"
+            else
+              rttResult = (rtt).round(4)
+              statusResult = "Offline"
+              alertBlock = "d-block"
+            end
+          else
+            rttResult = "failed"
+          end
+        %>
+      </div>
+      <div class="alert alert-danger <%= alertBlock %>" role="alert">
+        <%= alert.unitname %> has network problem. Please check immediately the IP Address is <%= alert.ipaddress %>
+      </div>
+
+    <%end%>
   </div>
 </div>
 <script type="text/javascript">
