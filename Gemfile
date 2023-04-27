@@ -56,7 +56,7 @@ group :development do
   gem 'netsnmp', '~> 0.6.4'
   gem 'snmp', '~> 1.3', '>= 1.3.2'
   gem 'snmp-open', '~> 0.8.0'
-  gem 'chartkick', '~> 2.2', '>= 2.2.1'
+  gem 'chartkick', '~> 3.4'
   gem 'will_paginate', '~> 3.3', '>= 3.3.1'
   gem 'popper_js', '~> 2.11', '>= 2.11.6'
   gem 'jquery-rails', '~> 4.5', '>= 4.5.1'
