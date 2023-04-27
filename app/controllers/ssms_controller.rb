@@ -14,6 +14,7 @@ class SsmsController < ApplicationController
   # GET /ssms/1 or /ssms/1.json
   def show
     if logged_in?
+      @ssms = Ssm.all
       @echoIP = @ssm.ipaddress
       @echoName =  @ssm.unitname
       rtt = Benchmark.realtime do

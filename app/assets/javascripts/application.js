@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require vis
 //= require sweetalert
 //= require chartkick
 //= require Chart.bundle
@@ -19,6 +20,9 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+
+
 
 $.ajaxSetup({
   headers: {

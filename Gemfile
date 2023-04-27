@@ -65,6 +65,7 @@ group :development do
   gem 'benchmark-ips', '~> 2.12'
   gem 'image_processing', '~> 1.2'
   gem 'sweetalert-rails', '~> 1.1', '>= 1.1.3'
+  gem 'vis-gem'
 end
 
 
