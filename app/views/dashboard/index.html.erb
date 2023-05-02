@@ -48,37 +48,37 @@
           <li>
             <%= link_to root_path do %>
             <i class="fa fa-solid fa-home pr-5"></i>
-              <small style="margin-left:20px;" class="fs-6">Dashboard</small>
+              <small style="margin-left:20px;">Dashboard</small>
             <% end %>
           </li>
           <li>
             <%= link_to nocs_path do %>
               <i class="fa fa-solid fa-server pr-5"></i>
-              <small style="margin-left:20px;" class="fs-6">NOC</small>
+              <small style="margin-left:20px;">NOC</small>
             <% end %>
           </li>
           <li>
             <%= link_to snmpdevices_path do %>
               <i class="fa fa- fa-plug pr-5"></i>
-              <small style="margin-left:20px;" class="fs-6">MiniBoot</small>
+              <small style="margin-left:20px;">MiniBoot</small>
             <% end %>
           </li>
           <li>
             <%= link_to ssms_path do %>
             <i class="fa fa-solid fa-sitemap pr-5"></i>
-              <small style="margin-left:20px;" class="fs-6">Switches</small>
+              <small style="margin-left:20px;">Switches</small>
             <% end %>
           </li>
           <li>
             <a href="<%= @accrossLink %>" target="_blank">
               <i class="fa fa-link fa-solid pr-5"></i>
-              <small style="margin-left:20px;" class="fs-6"> Across </small>
+              <small style="margin-left:20px;"> Across </small>
             </a>
           </li>
           <li>
             <a href="#" id="btnFullscreen">
               <i class="fa fa-arrows-alt fa-solid pr-5"></i>
-              <small style="margin-left:20px;" class="fs-6"> Fullscreen </small>
+              <small style="margin-left:20px;"> Fullscreen </small>
             </a>
           </li>
         </ul>
@@ -417,7 +417,6 @@
                   </li>
 
                 <% end %>
-
                 <% @ssms.each do |ssm| %>
                   <div class="d-none">
                     <%=

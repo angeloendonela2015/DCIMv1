@@ -30,10 +30,10 @@ class DisplaysController < ApplicationController
 
   # POST /displays or /displays.json
   def create
-    if logged_in
+    if logged_in?
       @display = Display.new(display_params)
-      @display.image.attach(params[:display][:logo])
-      @display.image.attach(params[:display][:bckimage])
+      @display.logo.attach(params[:display][:logo])
+      @display.bckimage.attach(params[:display][:bckimage])
       respond_to do |format|
         if @display.save
           format.html { redirect_to display_url(@display), notice: "Display was successfully created." }
