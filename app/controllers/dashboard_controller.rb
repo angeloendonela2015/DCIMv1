@@ -2,9 +2,19 @@ class DashboardController < ApplicationController
 
   def index
     if logged_in?
-      @display = Display.find(1)
+      if logo_empty?
+        @display = Display.find(1)
+        @displaylogo = @display.logo
+        @displayback = @display.bckimage
+        @displaytitle = @display.title
+        @displaysubtitle = @display.subtitle
+      else
+        @displaylogo = "/assets/comspec.png"
+        @displayback = "/assets/comspec.png"
+        @displaytitle = "Comspec Marketing Solutions"
+        @displaysubtitle = "Naga City"
+      end
       @ssms = Ssm.all
-      @bckImagelink = ""
       @section = (rand*10).to_i
       @firstnameDisplay = current_user.firstname[0]
 

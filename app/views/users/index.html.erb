@@ -60,14 +60,15 @@
     <div class="card p-2">
       <div class="card-body bg-dark bg-gradient text-light">
         <h5 class="card-title text-light "><i class="fa fa-solid fa-user"> </i> <%= current_user.firstname %> <%= current_user.lastname %></h5>
-        <%= link_to edit_display_path(@display), title: "Edit Display" do %>
-        <div class="row">
-          <div class="col-6 mt-5 pl-2">
-            <h4><%= @display.title %></h4>
-            <h6><%= @display.subtitle %></h6>
+        <hr>
+        <%= link_to @displaylink, title: "Edit Display" do %>
+        <div class="row text-center">
+          <div class="col-12 mt-52 p-2">
+            <h4><%= @displaytitle %></h4>
+            <h6><%= @displaysubtitle %></h6>
           </div>
-          <div class="col-6">
-            <%= image_tag url_for(@display.logo), class:"img-fluid rounded mx-auto d-block", style:"width:auto; height:10rem;" %>
+          <div class="col-12">
+            <%= image_tag url_for(@displaylogo), class:"img-fluid rounded mx-auto d-block", style:"width:auto; height:auto;" %>
           </div>
         </div>
         <% end %>

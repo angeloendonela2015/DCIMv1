@@ -11,4 +11,12 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
+  def logo_display
+    @logo_display = Display.first
+  end
+
+  def logo_empty?
+    !!logo_display
+  end
+
 end

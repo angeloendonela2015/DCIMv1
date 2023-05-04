@@ -12,7 +12,7 @@
     width: 100%;
     height: 100%;
     opacity: 0.1;
-    background-image: url(<%= url_for(@display.bckimage) %>);
+    background-image: url(<%= url_for(@displayback) %>);
     background-repeat: no-repeat;
     background-position: 50% 0;
     background-size: cover;
@@ -87,20 +87,21 @@
       <div class="card">
         <div class="row g-3">
           <div class="col-md-3 border-end">
-            <%= image_tag url_for(@display.logo), class:"img-fluid rounded mx-auto d-block mt-2", style:"width:auto; height:10rem;position: relative;" %>
+            <%= image_tag url_for(@displaylogo), class:"img-fluid rounded mx-auto d-block mt-2", style:"width:auto; height:10rem;position: relative;" %>
           </div>
           <div class="col-md-6">
             <div class="card-body p-5">
-              <h1 class="card-title text-light fw-bolder"><%= @display.title %></h1>
-              <p class="card-text text-light fw-bolder"><%= @display.subtitle %></p>
+              <h1 class="card-title text-light fw-bolder"><%= @displaytitle %></h1>
+              <hr class="text-light">
+              <p class="card-text text-light fw-bolder"><%= @displaysubtitle %></p>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card-body text-center p-5">
-              <h1 class="card-title text-light text-center"><%=
+              <h2 class="card-title text-light text-center"><%=
                     dashTime = Time.now
                     @displayTime = dashTime.strftime("%I:%M %p")
-                     %></h1>
+                     %></h2>
               <p class="card-text"><small class="text-light text-center font-bolder"><%= @displayDate = dashTime.strftime("%A %B %d %Y") %></small></p>
             </div>
           </div>
@@ -108,10 +109,10 @@
       </div>
 
       <div class="row">
-        <div class="col-sm-4 mt-3">
+        <div class="col-sm-4 mt-3 d-none">
           <div class="list-group">
             <div class="list-group-item list-group-item-action active">
-              <i class="fa fa-solid fa-server f-2" style="color:#fff;""></i>
+              <i class="fa fa-solid fa-server f-2" style="color:#fff;"></i>
               Network Operation Center
             </div>
             <% @nocs.each do |noc| %>
@@ -140,7 +141,7 @@
           </div>
         </div>
 
-        <div class="col-sm-5 mt-3">
+        <div class="col-sm-8 mt-3">
           <div class="list-group">
             <li href="#" class="list-group-item list-group-item-action active">
               <i class="fa fa-solid fa-plug f-2" style="color:#fff;"></i>
@@ -371,7 +372,7 @@
             </li>
           </div>
         </div>
-        <div class="col-sm-3 mt-3">
+        <div class="col-sm-4 mt-3">
           <div class="list-group">
             <div class="list-group-item list-group-item-action active">
               <i class="fa fa-solid fa-sitemap f-2" style="color:#fff;"></i>

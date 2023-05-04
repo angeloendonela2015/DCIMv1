@@ -1,7 +1,15 @@
 class LoginController < ApplicationController
   def new
+
+    if logo_empty?
+      @display = Display.find(1)
+      @logoDisplay = @display.logo
+    else
+      @logoDisplay = '/assets/comspec.png'
+    end
+
     @user = User.new
-    @display = Display.find(1)
+    @display = Display.all
     year = Date.today
     @currentYear = year.strftime('%Y')
 

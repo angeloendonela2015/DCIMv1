@@ -4,7 +4,19 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     if logged_in?
-      @display = Display.find(1)
+      if logo_empty?
+        @display = Display.find(1)
+        @displaylink = display_path(@display)
+        @displaylogo = @display.logo
+        @displaytitle = @display.title
+        @displaysubtitle = @display.subtitle
+      else
+        @displaylink = new_display_path
+        @displaylogo = "/assets/comspec.png"
+        @displaytitle = "Comspec Marketing"
+        @displaysubtitle = "Naga City"
+      end
+      
       @accrossLink = 'http://192.168.124.141/dominus/options/'
       if current_user.userinterface == "Administrator"
         @users = User.all
