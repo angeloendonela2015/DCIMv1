@@ -8,7 +8,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col">
-              <h5 class="card-title text-light"><i class="fa fa-solid fa-sitemap"> SERVER STATUS MONITORING</i></h5>
+              <h5 class="card-title text-light"><i class="fa fa-solid fa-sitemap"></i> SERVER STATUS MONITORING</h5>
             </div>
             <div class="col">
               <%= form_tag ssms_path, :method => "GET" do %>
@@ -85,6 +85,7 @@
       </div>
     </div>
     <div class="col-sm-3 mt-2">
+      
       <% @ssms.each do |alert|%>
       <div class="d-none">
         <%=
@@ -107,9 +108,9 @@
         %>
       </div>
       <div class="alert alert-danger <%= alertBlock %>" role="alert">
-        <%= alert.unitname %> has network problem. Please check immediately the IP Address is <%= alert.ipaddress %>
-      </div>
-
+          <%= alert.unitname %> is offline. Please check the connection of this IP address:
+          <a href="http://<%= alert.ipaddress %>" target="_blank" class="text-danger"><%= alert.ipaddress %></a>.
+        </div>
     <%end%>
   </div>
 </div>
